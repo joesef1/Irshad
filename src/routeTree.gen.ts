@@ -33,6 +33,7 @@ import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authentic
 import { Route as AuthenticatedAppsIndexRouteImport } from './routes/_authenticated/apps/index'
 import { Route as AuthenticatedSubscriptionIndexRouteImport } from './routes/_authenticated/Subscription/index'
 import { Route as AuthenticatedPsychologyTestIndexRouteImport } from './routes/_authenticated/PsychologyTest/index'
+import { Route as AuthenticatedLookupIndexRouteImport } from './routes/_authenticated/Lookup/index'
 import { Route as AuthenticatedConsultantIndexRouteImport } from './routes/_authenticated/Consultant/index'
 import { Route as AuthenticatedArticlesCategoryIndexRouteImport } from './routes/_authenticated/ArticlesCategory/index'
 import { Route as AuthenticatedArticlesIndexRouteImport } from './routes/_authenticated/Articles/index'
@@ -171,6 +172,12 @@ const AuthenticatedPsychologyTestIndexRoute =
     path: '/PsychologyTest/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedLookupIndexRoute =
+  AuthenticatedLookupIndexRouteImport.update({
+    id: '/Lookup/',
+    path: '/Lookup/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedConsultantIndexRoute =
   AuthenticatedConsultantIndexRouteImport.update({
     id: '/Consultant/',
@@ -287,6 +294,7 @@ export interface FileRoutesByFullPath {
   '/Articles/': typeof AuthenticatedArticlesIndexRoute
   '/ArticlesCategory/': typeof AuthenticatedArticlesCategoryIndexRoute
   '/Consultant/': typeof AuthenticatedConsultantIndexRoute
+  '/Lookup/': typeof AuthenticatedLookupIndexRoute
   '/PsychologyTest/': typeof AuthenticatedPsychologyTestIndexRoute
   '/Subscription/': typeof AuthenticatedSubscriptionIndexRoute
   '/apps/': typeof AuthenticatedAppsIndexRoute
@@ -324,6 +332,7 @@ export interface FileRoutesByTo {
   '/Articles': typeof AuthenticatedArticlesIndexRoute
   '/ArticlesCategory': typeof AuthenticatedArticlesCategoryIndexRoute
   '/Consultant': typeof AuthenticatedConsultantIndexRoute
+  '/Lookup': typeof AuthenticatedLookupIndexRoute
   '/PsychologyTest': typeof AuthenticatedPsychologyTestIndexRoute
   '/Subscription': typeof AuthenticatedSubscriptionIndexRoute
   '/apps': typeof AuthenticatedAppsIndexRoute
@@ -366,6 +375,7 @@ export interface FileRoutesById {
   '/_authenticated/Articles/': typeof AuthenticatedArticlesIndexRoute
   '/_authenticated/ArticlesCategory/': typeof AuthenticatedArticlesCategoryIndexRoute
   '/_authenticated/Consultant/': typeof AuthenticatedConsultantIndexRoute
+  '/_authenticated/Lookup/': typeof AuthenticatedLookupIndexRoute
   '/_authenticated/PsychologyTest/': typeof AuthenticatedPsychologyTestIndexRoute
   '/_authenticated/Subscription/': typeof AuthenticatedSubscriptionIndexRoute
   '/_authenticated/apps/': typeof AuthenticatedAppsIndexRoute
@@ -406,6 +416,7 @@ export interface FileRouteTypes {
     | '/Articles/'
     | '/ArticlesCategory/'
     | '/Consultant/'
+    | '/Lookup/'
     | '/PsychologyTest/'
     | '/Subscription/'
     | '/apps/'
@@ -443,6 +454,7 @@ export interface FileRouteTypes {
     | '/Articles'
     | '/ArticlesCategory'
     | '/Consultant'
+    | '/Lookup'
     | '/PsychologyTest'
     | '/Subscription'
     | '/apps'
@@ -484,6 +496,7 @@ export interface FileRouteTypes {
     | '/_authenticated/Articles/'
     | '/_authenticated/ArticlesCategory/'
     | '/_authenticated/Consultant/'
+    | '/_authenticated/Lookup/'
     | '/_authenticated/PsychologyTest/'
     | '/_authenticated/Subscription/'
     | '/_authenticated/apps/'
@@ -681,6 +694,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPsychologyTestIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/Lookup/': {
+      id: '/_authenticated/Lookup/'
+      path: '/Lookup'
+      fullPath: '/Lookup/'
+      preLoaderRoute: typeof AuthenticatedLookupIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/Consultant/': {
       id: '/_authenticated/Consultant/'
       path: '/Consultant'
@@ -821,6 +841,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedArticlesIndexRoute: typeof AuthenticatedArticlesIndexRoute
   AuthenticatedArticlesCategoryIndexRoute: typeof AuthenticatedArticlesCategoryIndexRoute
   AuthenticatedConsultantIndexRoute: typeof AuthenticatedConsultantIndexRoute
+  AuthenticatedLookupIndexRoute: typeof AuthenticatedLookupIndexRoute
   AuthenticatedPsychologyTestIndexRoute: typeof AuthenticatedPsychologyTestIndexRoute
   AuthenticatedSubscriptionIndexRoute: typeof AuthenticatedSubscriptionIndexRoute
   AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
@@ -843,6 +864,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedArticlesCategoryIndexRoute:
     AuthenticatedArticlesCategoryIndexRoute,
   AuthenticatedConsultantIndexRoute: AuthenticatedConsultantIndexRoute,
+  AuthenticatedLookupIndexRoute: AuthenticatedLookupIndexRoute,
   AuthenticatedPsychologyTestIndexRoute: AuthenticatedPsychologyTestIndexRoute,
   AuthenticatedSubscriptionIndexRoute: AuthenticatedSubscriptionIndexRoute,
   AuthenticatedAppsIndexRoute: AuthenticatedAppsIndexRoute,
