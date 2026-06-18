@@ -32,6 +32,7 @@ import { Route as AuthenticatedHelpCenterIndexRouteImport } from './routes/_auth
 import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authenticated/chats/index'
 import { Route as AuthenticatedAppsIndexRouteImport } from './routes/_authenticated/apps/index'
 import { Route as AuthenticatedConsultantIndexRouteImport } from './routes/_authenticated/Consultant/index'
+import { Route as AuthenticatedArticlesCategoryIndexRouteImport } from './routes/_authenticated/ArticlesCategory/index'
 import { Route as ClerkAuthenticatedUserManagementRouteImport } from './routes/clerk/_authenticated/user-management'
 import { Route as ClerkauthSignUpRouteImport } from './routes/clerk/(auth)/sign-up'
 import { Route as ClerkauthSignInRouteImport } from './routes/clerk/(auth)/sign-in'
@@ -158,6 +159,12 @@ const AuthenticatedConsultantIndexRoute =
     path: '/Consultant/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedArticlesCategoryIndexRoute =
+  AuthenticatedArticlesCategoryIndexRouteImport.update({
+    id: '/ArticlesCategory/',
+    path: '/ArticlesCategory/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const ClerkAuthenticatedUserManagementRoute =
   ClerkAuthenticatedUserManagementRouteImport.update({
     id: '/user-management',
@@ -234,6 +241,7 @@ export interface FileRoutesByFullPath {
   '/clerk/sign-in': typeof ClerkauthSignInRoute
   '/clerk/sign-up': typeof ClerkauthSignUpRoute
   '/clerk/user-management': typeof ClerkAuthenticatedUserManagementRoute
+  '/ArticlesCategory/': typeof AuthenticatedArticlesCategoryIndexRoute
   '/Consultant/': typeof AuthenticatedConsultantIndexRoute
   '/apps/': typeof AuthenticatedAppsIndexRoute
   '/chats/': typeof AuthenticatedChatsIndexRoute
@@ -264,6 +272,7 @@ export interface FileRoutesByTo {
   '/clerk/sign-in': typeof ClerkauthSignInRoute
   '/clerk/sign-up': typeof ClerkauthSignUpRoute
   '/clerk/user-management': typeof ClerkAuthenticatedUserManagementRoute
+  '/ArticlesCategory': typeof AuthenticatedArticlesCategoryIndexRoute
   '/Consultant': typeof AuthenticatedConsultantIndexRoute
   '/apps': typeof AuthenticatedAppsIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
@@ -299,6 +308,7 @@ export interface FileRoutesById {
   '/clerk/(auth)/sign-in': typeof ClerkauthSignInRoute
   '/clerk/(auth)/sign-up': typeof ClerkauthSignUpRoute
   '/clerk/_authenticated/user-management': typeof ClerkAuthenticatedUserManagementRoute
+  '/_authenticated/ArticlesCategory/': typeof AuthenticatedArticlesCategoryIndexRoute
   '/_authenticated/Consultant/': typeof AuthenticatedConsultantIndexRoute
   '/_authenticated/apps/': typeof AuthenticatedAppsIndexRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
@@ -332,6 +342,7 @@ export interface FileRouteTypes {
     | '/clerk/sign-in'
     | '/clerk/sign-up'
     | '/clerk/user-management'
+    | '/ArticlesCategory/'
     | '/Consultant/'
     | '/apps/'
     | '/chats/'
@@ -362,6 +373,7 @@ export interface FileRouteTypes {
     | '/clerk/sign-in'
     | '/clerk/sign-up'
     | '/clerk/user-management'
+    | '/ArticlesCategory'
     | '/Consultant'
     | '/apps'
     | '/chats'
@@ -396,6 +408,7 @@ export interface FileRouteTypes {
     | '/clerk/(auth)/sign-in'
     | '/clerk/(auth)/sign-up'
     | '/clerk/_authenticated/user-management'
+    | '/_authenticated/ArticlesCategory/'
     | '/_authenticated/Consultant/'
     | '/_authenticated/apps/'
     | '/_authenticated/chats/'
@@ -583,6 +596,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedConsultantIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/ArticlesCategory/': {
+      id: '/_authenticated/ArticlesCategory/'
+      path: '/ArticlesCategory'
+      fullPath: '/ArticlesCategory/'
+      preLoaderRoute: typeof AuthenticatedArticlesCategoryIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/clerk/_authenticated/user-management': {
       id: '/clerk/_authenticated/user-management'
       path: '/user-management'
@@ -677,6 +697,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedConsultantConsultantIdRoute: typeof AuthenticatedConsultantConsultantIdRoute
   AuthenticatedErrorsErrorRoute: typeof AuthenticatedErrorsErrorRoute
+  AuthenticatedArticlesCategoryIndexRoute: typeof AuthenticatedArticlesCategoryIndexRoute
   AuthenticatedConsultantIndexRoute: typeof AuthenticatedConsultantIndexRoute
   AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
@@ -691,6 +712,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedConsultantConsultantIdRoute:
     AuthenticatedConsultantConsultantIdRoute,
   AuthenticatedErrorsErrorRoute: AuthenticatedErrorsErrorRoute,
+  AuthenticatedArticlesCategoryIndexRoute:
+    AuthenticatedArticlesCategoryIndexRoute,
   AuthenticatedConsultantIndexRoute: AuthenticatedConsultantIndexRoute,
   AuthenticatedAppsIndexRoute: AuthenticatedAppsIndexRoute,
   AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
