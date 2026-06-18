@@ -33,6 +33,7 @@ import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authentic
 import { Route as AuthenticatedAppsIndexRouteImport } from './routes/_authenticated/apps/index'
 import { Route as AuthenticatedConsultantIndexRouteImport } from './routes/_authenticated/Consultant/index'
 import { Route as AuthenticatedArticlesCategoryIndexRouteImport } from './routes/_authenticated/ArticlesCategory/index'
+import { Route as AuthenticatedArticlesIndexRouteImport } from './routes/_authenticated/Articles/index'
 import { Route as ClerkAuthenticatedUserManagementRouteImport } from './routes/clerk/_authenticated/user-management'
 import { Route as ClerkauthSignUpRouteImport } from './routes/clerk/(auth)/sign-up'
 import { Route as ClerkauthSignInRouteImport } from './routes/clerk/(auth)/sign-in'
@@ -42,6 +43,7 @@ import { Route as AuthenticatedSettingsAppearanceRouteImport } from './routes/_a
 import { Route as AuthenticatedSettingsAccountRouteImport } from './routes/_authenticated/settings/account'
 import { Route as AuthenticatedErrorsErrorRouteImport } from './routes/_authenticated/errors/$error'
 import { Route as AuthenticatedConsultantConsultantIdRouteImport } from './routes/_authenticated/Consultant/$consultantId'
+import { Route as AuthenticatedArticlesArticleIdRouteImport } from './routes/_authenticated/Articles/$articleId'
 
 const ClerkRouteRoute = ClerkRouteRouteImport.update({
   id: '/clerk',
@@ -165,6 +167,12 @@ const AuthenticatedArticlesCategoryIndexRoute =
     path: '/ArticlesCategory/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedArticlesIndexRoute =
+  AuthenticatedArticlesIndexRouteImport.update({
+    id: '/Articles/',
+    path: '/Articles/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const ClerkAuthenticatedUserManagementRoute =
   ClerkAuthenticatedUserManagementRouteImport.update({
     id: '/user-management',
@@ -217,6 +225,12 @@ const AuthenticatedConsultantConsultantIdRoute =
     path: '/Consultant/$consultantId',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedArticlesArticleIdRoute =
+  AuthenticatedArticlesArticleIdRouteImport.update({
+    id: '/Articles/$articleId',
+    path: '/Articles/$articleId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
@@ -232,6 +246,7 @@ export interface FileRoutesByFullPath {
   '/404': typeof errors404Route
   '/500': typeof errors500Route
   '/503': typeof errors503Route
+  '/Articles/$articleId': typeof AuthenticatedArticlesArticleIdRoute
   '/Consultant/$consultantId': typeof AuthenticatedConsultantConsultantIdRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
   '/settings/account': typeof AuthenticatedSettingsAccountRoute
@@ -241,6 +256,7 @@ export interface FileRoutesByFullPath {
   '/clerk/sign-in': typeof ClerkauthSignInRoute
   '/clerk/sign-up': typeof ClerkauthSignUpRoute
   '/clerk/user-management': typeof ClerkAuthenticatedUserManagementRoute
+  '/Articles/': typeof AuthenticatedArticlesIndexRoute
   '/ArticlesCategory/': typeof AuthenticatedArticlesCategoryIndexRoute
   '/Consultant/': typeof AuthenticatedConsultantIndexRoute
   '/apps/': typeof AuthenticatedAppsIndexRoute
@@ -263,6 +279,7 @@ export interface FileRoutesByTo {
   '/500': typeof errors500Route
   '/503': typeof errors503Route
   '/': typeof AuthenticatedIndexRoute
+  '/Articles/$articleId': typeof AuthenticatedArticlesArticleIdRoute
   '/Consultant/$consultantId': typeof AuthenticatedConsultantConsultantIdRoute
   '/errors/$error': typeof AuthenticatedErrorsErrorRoute
   '/settings/account': typeof AuthenticatedSettingsAccountRoute
@@ -272,6 +289,7 @@ export interface FileRoutesByTo {
   '/clerk/sign-in': typeof ClerkauthSignInRoute
   '/clerk/sign-up': typeof ClerkauthSignUpRoute
   '/clerk/user-management': typeof ClerkAuthenticatedUserManagementRoute
+  '/Articles': typeof AuthenticatedArticlesIndexRoute
   '/ArticlesCategory': typeof AuthenticatedArticlesCategoryIndexRoute
   '/Consultant': typeof AuthenticatedConsultantIndexRoute
   '/apps': typeof AuthenticatedAppsIndexRoute
@@ -299,6 +317,7 @@ export interface FileRoutesById {
   '/(errors)/500': typeof errors500Route
   '/(errors)/503': typeof errors503Route
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/Articles/$articleId': typeof AuthenticatedArticlesArticleIdRoute
   '/_authenticated/Consultant/$consultantId': typeof AuthenticatedConsultantConsultantIdRoute
   '/_authenticated/errors/$error': typeof AuthenticatedErrorsErrorRoute
   '/_authenticated/settings/account': typeof AuthenticatedSettingsAccountRoute
@@ -308,6 +327,7 @@ export interface FileRoutesById {
   '/clerk/(auth)/sign-in': typeof ClerkauthSignInRoute
   '/clerk/(auth)/sign-up': typeof ClerkauthSignUpRoute
   '/clerk/_authenticated/user-management': typeof ClerkAuthenticatedUserManagementRoute
+  '/_authenticated/Articles/': typeof AuthenticatedArticlesIndexRoute
   '/_authenticated/ArticlesCategory/': typeof AuthenticatedArticlesCategoryIndexRoute
   '/_authenticated/Consultant/': typeof AuthenticatedConsultantIndexRoute
   '/_authenticated/apps/': typeof AuthenticatedAppsIndexRoute
@@ -333,6 +353,7 @@ export interface FileRouteTypes {
     | '/404'
     | '/500'
     | '/503'
+    | '/Articles/$articleId'
     | '/Consultant/$consultantId'
     | '/errors/$error'
     | '/settings/account'
@@ -342,6 +363,7 @@ export interface FileRouteTypes {
     | '/clerk/sign-in'
     | '/clerk/sign-up'
     | '/clerk/user-management'
+    | '/Articles/'
     | '/ArticlesCategory/'
     | '/Consultant/'
     | '/apps/'
@@ -364,6 +386,7 @@ export interface FileRouteTypes {
     | '/500'
     | '/503'
     | '/'
+    | '/Articles/$articleId'
     | '/Consultant/$consultantId'
     | '/errors/$error'
     | '/settings/account'
@@ -373,6 +396,7 @@ export interface FileRouteTypes {
     | '/clerk/sign-in'
     | '/clerk/sign-up'
     | '/clerk/user-management'
+    | '/Articles'
     | '/ArticlesCategory'
     | '/Consultant'
     | '/apps'
@@ -399,6 +423,7 @@ export interface FileRouteTypes {
     | '/(errors)/500'
     | '/(errors)/503'
     | '/_authenticated/'
+    | '/_authenticated/Articles/$articleId'
     | '/_authenticated/Consultant/$consultantId'
     | '/_authenticated/errors/$error'
     | '/_authenticated/settings/account'
@@ -408,6 +433,7 @@ export interface FileRouteTypes {
     | '/clerk/(auth)/sign-in'
     | '/clerk/(auth)/sign-up'
     | '/clerk/_authenticated/user-management'
+    | '/_authenticated/Articles/'
     | '/_authenticated/ArticlesCategory/'
     | '/_authenticated/Consultant/'
     | '/_authenticated/apps/'
@@ -603,6 +629,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedArticlesCategoryIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/Articles/': {
+      id: '/_authenticated/Articles/'
+      path: '/Articles'
+      fullPath: '/Articles/'
+      preLoaderRoute: typeof AuthenticatedArticlesIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/clerk/_authenticated/user-management': {
       id: '/clerk/_authenticated/user-management'
       path: '/user-management'
@@ -666,6 +699,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedConsultantConsultantIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/Articles/$articleId': {
+      id: '/_authenticated/Articles/$articleId'
+      path: '/Articles/$articleId'
+      fullPath: '/Articles/$articleId'
+      preLoaderRoute: typeof AuthenticatedArticlesArticleIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -695,8 +735,10 @@ const AuthenticatedSettingsRouteRouteWithChildren =
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedSettingsRouteRoute: typeof AuthenticatedSettingsRouteRouteWithChildren
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedArticlesArticleIdRoute: typeof AuthenticatedArticlesArticleIdRoute
   AuthenticatedConsultantConsultantIdRoute: typeof AuthenticatedConsultantConsultantIdRoute
   AuthenticatedErrorsErrorRoute: typeof AuthenticatedErrorsErrorRoute
+  AuthenticatedArticlesIndexRoute: typeof AuthenticatedArticlesIndexRoute
   AuthenticatedArticlesCategoryIndexRoute: typeof AuthenticatedArticlesCategoryIndexRoute
   AuthenticatedConsultantIndexRoute: typeof AuthenticatedConsultantIndexRoute
   AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
@@ -709,9 +751,11 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedSettingsRouteRoute: AuthenticatedSettingsRouteRouteWithChildren,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedArticlesArticleIdRoute: AuthenticatedArticlesArticleIdRoute,
   AuthenticatedConsultantConsultantIdRoute:
     AuthenticatedConsultantConsultantIdRoute,
   AuthenticatedErrorsErrorRoute: AuthenticatedErrorsErrorRoute,
+  AuthenticatedArticlesIndexRoute: AuthenticatedArticlesIndexRoute,
   AuthenticatedArticlesCategoryIndexRoute:
     AuthenticatedArticlesCategoryIndexRoute,
   AuthenticatedConsultantIndexRoute: AuthenticatedConsultantIndexRoute,
