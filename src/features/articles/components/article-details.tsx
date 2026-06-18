@@ -18,6 +18,15 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+} from '@/components/ui/sheet'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Textarea } from '@/components/ui/textarea'
 import { ConfirmDialog } from '@/components/confirm-dialog'
@@ -40,6 +49,7 @@ export function ArticleDetails({ articleId }: Props) {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const [deleteOpen, setDeleteOpen] = useState(false)
+  const [drawerOpen, setDrawerOpen] = useState(false)
 
   const {
     data: article,
@@ -64,6 +74,7 @@ export function ArticleDetails({ articleId }: Props) {
       queryClient.invalidateQueries({
         queryKey: articleDetailsQueryKey(articleId),
       })
+      setDrawerOpen(false)
       form.reset()
     },
     onError: (err: Error) => toast.error(err.message),
@@ -137,16 +148,26 @@ export function ArticleDetails({ articleId }: Props) {
       <Card>
         <CardHeader className='flex flex-row items-center justify-between'>
           <CardTitle className='text-base'>Sections</CardTitle>
-          {article.sections && article.sections.length > 0 && (
+          {/* Both action buttons aligned in a row */}
+          <div className='flex gap-2'>
             <Button
-              variant='destructive'
               size='sm'
               className='gap-1.5'
-              onClick={() => setDeleteOpen(true)}
+              onClick={() => setDrawerOpen(true)}
             >
-              <Trash2 className='size-4' /> Delete All Sections
+              <Plus className='size-4' /> Add Section
             </Button>
-          )}
+            {article.sections && article.sections.length > 0 && (
+              <Button
+                variant='destructive'
+                size='sm'
+                className='gap-1.5'
+                onClick={() => setDeleteOpen(true)}
+              >
+                <Trash2 className='size-4' /> Delete All Sections
+              </Button>
+            )}
+          </div>
         </CardHeader>
         <CardContent className='flex flex-col gap-4'>
           {!article.sections?.length ? (
@@ -165,19 +186,28 @@ export function ArticleDetails({ articleId }: Props) {
         </CardContent>
       </Card>
 
-      {/* Add section form */}
-      <Card>
-        <CardHeader>
-          <CardTitle className='flex items-center gap-2 text-base'>
-            <Plus className='size-4' /> Add Section
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
+      {/* Add Section Drawer */}
+      <Sheet
+        open={drawerOpen}
+        onOpenChange={(v) => {
+          setDrawerOpen(v)
+          if (!v) form.reset()
+        }}
+      >
+        <SheetContent className='flex flex-col'>
+          <SheetHeader className='text-start'>
+            <SheetTitle>Add Section</SheetTitle>
+            <SheetDescription>
+              Add a new section to this article. Click save when you&apos;re
+              done.
+            </SheetDescription>
+          </SheetHeader>
+
           <Form {...form}>
             <form
               id='section-form'
               onSubmit={form.handleSubmit((d) => addSectionMutation.mutate(d))}
-              className='flex flex-col gap-4'
+              className='flex-1 space-y-5 overflow-y-auto px-4'
             >
               <FormField
                 control={form.control}
@@ -201,7 +231,7 @@ export function ArticleDetails({ articleId }: Props) {
                     <FormControl>
                       <Textarea
                         {...field}
-                        rows={5}
+                        rows={8}
                         placeholder='Write the section content…'
                       />
                     </FormControl>
@@ -209,18 +239,23 @@ export function ArticleDetails({ articleId }: Props) {
                   </FormItem>
                 )}
               />
-              <Button
-                type='submit'
-                form='section-form'
-                disabled={addSectionMutation.isPending}
-                className='self-end'
-              >
-                {addSectionMutation.isPending ? 'Saving…' : 'Add Section'}
-              </Button>
             </form>
           </Form>
-        </CardContent>
-      </Card>
+
+          <SheetFooter className='gap-2'>
+            <SheetClose asChild>
+              <Button variant='outline'>Close</Button>
+            </SheetClose>
+            <Button
+              form='section-form'
+              type='submit'
+              disabled={addSectionMutation.isPending}
+            >
+              {addSectionMutation.isPending ? 'Saving…' : 'Save changes'}
+            </Button>
+          </SheetFooter>
+        </SheetContent>
+      </Sheet>
 
       {/* Delete all sections confirm */}
       <ConfirmDialog
