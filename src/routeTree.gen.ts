@@ -31,6 +31,7 @@ import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authen
 import { Route as AuthenticatedHelpCenterIndexRouteImport } from './routes/_authenticated/help-center/index'
 import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authenticated/chats/index'
 import { Route as AuthenticatedAppsIndexRouteImport } from './routes/_authenticated/apps/index'
+import { Route as AuthenticatedSubscriptionIndexRouteImport } from './routes/_authenticated/Subscription/index'
 import { Route as AuthenticatedPsychologyTestIndexRouteImport } from './routes/_authenticated/PsychologyTest/index'
 import { Route as AuthenticatedConsultantIndexRouteImport } from './routes/_authenticated/Consultant/index'
 import { Route as AuthenticatedArticlesCategoryIndexRouteImport } from './routes/_authenticated/ArticlesCategory/index'
@@ -158,6 +159,12 @@ const AuthenticatedAppsIndexRoute = AuthenticatedAppsIndexRouteImport.update({
   path: '/apps/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedSubscriptionIndexRoute =
+  AuthenticatedSubscriptionIndexRouteImport.update({
+    id: '/Subscription/',
+    path: '/Subscription/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedPsychologyTestIndexRoute =
   AuthenticatedPsychologyTestIndexRouteImport.update({
     id: '/PsychologyTest/',
@@ -281,6 +288,7 @@ export interface FileRoutesByFullPath {
   '/ArticlesCategory/': typeof AuthenticatedArticlesCategoryIndexRoute
   '/Consultant/': typeof AuthenticatedConsultantIndexRoute
   '/PsychologyTest/': typeof AuthenticatedPsychologyTestIndexRoute
+  '/Subscription/': typeof AuthenticatedSubscriptionIndexRoute
   '/apps/': typeof AuthenticatedAppsIndexRoute
   '/chats/': typeof AuthenticatedChatsIndexRoute
   '/help-center/': typeof AuthenticatedHelpCenterIndexRoute
@@ -317,6 +325,7 @@ export interface FileRoutesByTo {
   '/ArticlesCategory': typeof AuthenticatedArticlesCategoryIndexRoute
   '/Consultant': typeof AuthenticatedConsultantIndexRoute
   '/PsychologyTest': typeof AuthenticatedPsychologyTestIndexRoute
+  '/Subscription': typeof AuthenticatedSubscriptionIndexRoute
   '/apps': typeof AuthenticatedAppsIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
@@ -358,6 +367,7 @@ export interface FileRoutesById {
   '/_authenticated/ArticlesCategory/': typeof AuthenticatedArticlesCategoryIndexRoute
   '/_authenticated/Consultant/': typeof AuthenticatedConsultantIndexRoute
   '/_authenticated/PsychologyTest/': typeof AuthenticatedPsychologyTestIndexRoute
+  '/_authenticated/Subscription/': typeof AuthenticatedSubscriptionIndexRoute
   '/_authenticated/apps/': typeof AuthenticatedAppsIndexRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
   '/_authenticated/help-center/': typeof AuthenticatedHelpCenterIndexRoute
@@ -397,6 +407,7 @@ export interface FileRouteTypes {
     | '/ArticlesCategory/'
     | '/Consultant/'
     | '/PsychologyTest/'
+    | '/Subscription/'
     | '/apps/'
     | '/chats/'
     | '/help-center/'
@@ -433,6 +444,7 @@ export interface FileRouteTypes {
     | '/ArticlesCategory'
     | '/Consultant'
     | '/PsychologyTest'
+    | '/Subscription'
     | '/apps'
     | '/chats'
     | '/help-center'
@@ -473,6 +485,7 @@ export interface FileRouteTypes {
     | '/_authenticated/ArticlesCategory/'
     | '/_authenticated/Consultant/'
     | '/_authenticated/PsychologyTest/'
+    | '/_authenticated/Subscription/'
     | '/_authenticated/apps/'
     | '/_authenticated/chats/'
     | '/_authenticated/help-center/'
@@ -654,6 +667,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppsIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/Subscription/': {
+      id: '/_authenticated/Subscription/'
+      path: '/Subscription'
+      fullPath: '/Subscription/'
+      preLoaderRoute: typeof AuthenticatedSubscriptionIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/PsychologyTest/': {
       id: '/_authenticated/PsychologyTest/'
       path: '/PsychologyTest'
@@ -802,6 +822,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedArticlesCategoryIndexRoute: typeof AuthenticatedArticlesCategoryIndexRoute
   AuthenticatedConsultantIndexRoute: typeof AuthenticatedConsultantIndexRoute
   AuthenticatedPsychologyTestIndexRoute: typeof AuthenticatedPsychologyTestIndexRoute
+  AuthenticatedSubscriptionIndexRoute: typeof AuthenticatedSubscriptionIndexRoute
   AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
   AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
@@ -823,6 +844,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
     AuthenticatedArticlesCategoryIndexRoute,
   AuthenticatedConsultantIndexRoute: AuthenticatedConsultantIndexRoute,
   AuthenticatedPsychologyTestIndexRoute: AuthenticatedPsychologyTestIndexRoute,
+  AuthenticatedSubscriptionIndexRoute: AuthenticatedSubscriptionIndexRoute,
   AuthenticatedAppsIndexRoute: AuthenticatedAppsIndexRoute,
   AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
   AuthenticatedHelpCenterIndexRoute: AuthenticatedHelpCenterIndexRoute,
