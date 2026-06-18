@@ -1,6 +1,9 @@
+import { Link } from '@tanstack/react-router'
 import { type ColumnDef } from '@tanstack/react-table'
+import { Eye } from 'lucide-react'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { DataTableColumnHeader } from '@/components/data-table'
 import { LongText } from '@/components/long-text'
 import { type Consultant } from '../data/schema'
@@ -115,5 +118,22 @@ export const consultantsColumns: ColumnDef<Consultant>[] = [
       <div className='capitalize'>{row.getValue('gender') ?? '—'}</div>
     ),
     enableSorting: false,
+  },
+  {
+    id: 'actions',
+    header: () => <span className='sr-only'>Actions</span>,
+    cell: ({ row }) => (
+      <Button variant='ghost' size='icon' asChild>
+        <Link
+          to='/Consultant/$consultantId'
+          params={{ consultantId: row.original.id }}
+          aria-label='View consultant details'
+        >
+          <Eye className='size-4' />
+        </Link>
+      </Button>
+    ),
+    enableSorting: false,
+    enableHiding: false,
   },
 ]
