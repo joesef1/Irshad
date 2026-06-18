@@ -31,6 +31,7 @@ import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authen
 import { Route as AuthenticatedHelpCenterIndexRouteImport } from './routes/_authenticated/help-center/index'
 import { Route as AuthenticatedChatsIndexRouteImport } from './routes/_authenticated/chats/index'
 import { Route as AuthenticatedAppsIndexRouteImport } from './routes/_authenticated/apps/index'
+import { Route as AuthenticatedPsychologyTestIndexRouteImport } from './routes/_authenticated/PsychologyTest/index'
 import { Route as AuthenticatedConsultantIndexRouteImport } from './routes/_authenticated/Consultant/index'
 import { Route as AuthenticatedArticlesCategoryIndexRouteImport } from './routes/_authenticated/ArticlesCategory/index'
 import { Route as AuthenticatedArticlesIndexRouteImport } from './routes/_authenticated/Articles/index'
@@ -44,6 +45,8 @@ import { Route as AuthenticatedSettingsAccountRouteImport } from './routes/_auth
 import { Route as AuthenticatedErrorsErrorRouteImport } from './routes/_authenticated/errors/$error'
 import { Route as AuthenticatedConsultantConsultantIdRouteImport } from './routes/_authenticated/Consultant/$consultantId'
 import { Route as AuthenticatedArticlesArticleIdRouteImport } from './routes/_authenticated/Articles/$articleId'
+import { Route as AuthenticatedPsychologyTestTestIdReportRouteImport } from './routes/_authenticated/PsychologyTest/$testId/report'
+import { Route as AuthenticatedPsychologyTestTestIdQuestionsRouteImport } from './routes/_authenticated/PsychologyTest/$testId/questions'
 
 const ClerkRouteRoute = ClerkRouteRouteImport.update({
   id: '/clerk',
@@ -155,6 +158,12 @@ const AuthenticatedAppsIndexRoute = AuthenticatedAppsIndexRouteImport.update({
   path: '/apps/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedPsychologyTestIndexRoute =
+  AuthenticatedPsychologyTestIndexRouteImport.update({
+    id: '/PsychologyTest/',
+    path: '/PsychologyTest/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedConsultantIndexRoute =
   AuthenticatedConsultantIndexRouteImport.update({
     id: '/Consultant/',
@@ -231,6 +240,18 @@ const AuthenticatedArticlesArticleIdRoute =
     path: '/Articles/$articleId',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedPsychologyTestTestIdReportRoute =
+  AuthenticatedPsychologyTestTestIdReportRouteImport.update({
+    id: '/PsychologyTest/$testId/report',
+    path: '/PsychologyTest/$testId/report',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedPsychologyTestTestIdQuestionsRoute =
+  AuthenticatedPsychologyTestTestIdQuestionsRouteImport.update({
+    id: '/PsychologyTest/$testId/questions',
+    path: '/PsychologyTest/$testId/questions',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
@@ -259,12 +280,15 @@ export interface FileRoutesByFullPath {
   '/Articles/': typeof AuthenticatedArticlesIndexRoute
   '/ArticlesCategory/': typeof AuthenticatedArticlesCategoryIndexRoute
   '/Consultant/': typeof AuthenticatedConsultantIndexRoute
+  '/PsychologyTest/': typeof AuthenticatedPsychologyTestIndexRoute
   '/apps/': typeof AuthenticatedAppsIndexRoute
   '/chats/': typeof AuthenticatedChatsIndexRoute
   '/help-center/': typeof AuthenticatedHelpCenterIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/tasks/': typeof AuthenticatedTasksIndexRoute
   '/users/': typeof AuthenticatedUsersIndexRoute
+  '/PsychologyTest/$testId/questions': typeof AuthenticatedPsychologyTestTestIdQuestionsRoute
+  '/PsychologyTest/$testId/report': typeof AuthenticatedPsychologyTestTestIdReportRoute
 }
 export interface FileRoutesByTo {
   '/clerk': typeof ClerkAuthenticatedRouteRouteWithChildren
@@ -292,12 +316,15 @@ export interface FileRoutesByTo {
   '/Articles': typeof AuthenticatedArticlesIndexRoute
   '/ArticlesCategory': typeof AuthenticatedArticlesCategoryIndexRoute
   '/Consultant': typeof AuthenticatedConsultantIndexRoute
+  '/PsychologyTest': typeof AuthenticatedPsychologyTestIndexRoute
   '/apps': typeof AuthenticatedAppsIndexRoute
   '/chats': typeof AuthenticatedChatsIndexRoute
   '/help-center': typeof AuthenticatedHelpCenterIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
   '/users': typeof AuthenticatedUsersIndexRoute
+  '/PsychologyTest/$testId/questions': typeof AuthenticatedPsychologyTestTestIdQuestionsRoute
+  '/PsychologyTest/$testId/report': typeof AuthenticatedPsychologyTestTestIdReportRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -330,12 +357,15 @@ export interface FileRoutesById {
   '/_authenticated/Articles/': typeof AuthenticatedArticlesIndexRoute
   '/_authenticated/ArticlesCategory/': typeof AuthenticatedArticlesCategoryIndexRoute
   '/_authenticated/Consultant/': typeof AuthenticatedConsultantIndexRoute
+  '/_authenticated/PsychologyTest/': typeof AuthenticatedPsychologyTestIndexRoute
   '/_authenticated/apps/': typeof AuthenticatedAppsIndexRoute
   '/_authenticated/chats/': typeof AuthenticatedChatsIndexRoute
   '/_authenticated/help-center/': typeof AuthenticatedHelpCenterIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
   '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
+  '/_authenticated/PsychologyTest/$testId/questions': typeof AuthenticatedPsychologyTestTestIdQuestionsRoute
+  '/_authenticated/PsychologyTest/$testId/report': typeof AuthenticatedPsychologyTestTestIdReportRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -366,12 +396,15 @@ export interface FileRouteTypes {
     | '/Articles/'
     | '/ArticlesCategory/'
     | '/Consultant/'
+    | '/PsychologyTest/'
     | '/apps/'
     | '/chats/'
     | '/help-center/'
     | '/settings/'
     | '/tasks/'
     | '/users/'
+    | '/PsychologyTest/$testId/questions'
+    | '/PsychologyTest/$testId/report'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/clerk'
@@ -399,12 +432,15 @@ export interface FileRouteTypes {
     | '/Articles'
     | '/ArticlesCategory'
     | '/Consultant'
+    | '/PsychologyTest'
     | '/apps'
     | '/chats'
     | '/help-center'
     | '/settings'
     | '/tasks'
     | '/users'
+    | '/PsychologyTest/$testId/questions'
+    | '/PsychologyTest/$testId/report'
   id:
     | '__root__'
     | '/_authenticated'
@@ -436,12 +472,15 @@ export interface FileRouteTypes {
     | '/_authenticated/Articles/'
     | '/_authenticated/ArticlesCategory/'
     | '/_authenticated/Consultant/'
+    | '/_authenticated/PsychologyTest/'
     | '/_authenticated/apps/'
     | '/_authenticated/chats/'
     | '/_authenticated/help-center/'
     | '/_authenticated/settings/'
     | '/_authenticated/tasks/'
     | '/_authenticated/users/'
+    | '/_authenticated/PsychologyTest/$testId/questions'
+    | '/_authenticated/PsychologyTest/$testId/report'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -615,6 +654,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppsIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/PsychologyTest/': {
+      id: '/_authenticated/PsychologyTest/'
+      path: '/PsychologyTest'
+      fullPath: '/PsychologyTest/'
+      preLoaderRoute: typeof AuthenticatedPsychologyTestIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/Consultant/': {
       id: '/_authenticated/Consultant/'
       path: '/Consultant'
@@ -706,6 +752,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedArticlesArticleIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/PsychologyTest/$testId/report': {
+      id: '/_authenticated/PsychologyTest/$testId/report'
+      path: '/PsychologyTest/$testId/report'
+      fullPath: '/PsychologyTest/$testId/report'
+      preLoaderRoute: typeof AuthenticatedPsychologyTestTestIdReportRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/PsychologyTest/$testId/questions': {
+      id: '/_authenticated/PsychologyTest/$testId/questions'
+      path: '/PsychologyTest/$testId/questions'
+      fullPath: '/PsychologyTest/$testId/questions'
+      preLoaderRoute: typeof AuthenticatedPsychologyTestTestIdQuestionsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -741,11 +801,14 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedArticlesIndexRoute: typeof AuthenticatedArticlesIndexRoute
   AuthenticatedArticlesCategoryIndexRoute: typeof AuthenticatedArticlesCategoryIndexRoute
   AuthenticatedConsultantIndexRoute: typeof AuthenticatedConsultantIndexRoute
+  AuthenticatedPsychologyTestIndexRoute: typeof AuthenticatedPsychologyTestIndexRoute
   AuthenticatedAppsIndexRoute: typeof AuthenticatedAppsIndexRoute
   AuthenticatedChatsIndexRoute: typeof AuthenticatedChatsIndexRoute
   AuthenticatedHelpCenterIndexRoute: typeof AuthenticatedHelpCenterIndexRoute
   AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
   AuthenticatedUsersIndexRoute: typeof AuthenticatedUsersIndexRoute
+  AuthenticatedPsychologyTestTestIdQuestionsRoute: typeof AuthenticatedPsychologyTestTestIdQuestionsRoute
+  AuthenticatedPsychologyTestTestIdReportRoute: typeof AuthenticatedPsychologyTestTestIdReportRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -759,11 +822,16 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedArticlesCategoryIndexRoute:
     AuthenticatedArticlesCategoryIndexRoute,
   AuthenticatedConsultantIndexRoute: AuthenticatedConsultantIndexRoute,
+  AuthenticatedPsychologyTestIndexRoute: AuthenticatedPsychologyTestIndexRoute,
   AuthenticatedAppsIndexRoute: AuthenticatedAppsIndexRoute,
   AuthenticatedChatsIndexRoute: AuthenticatedChatsIndexRoute,
   AuthenticatedHelpCenterIndexRoute: AuthenticatedHelpCenterIndexRoute,
   AuthenticatedTasksIndexRoute: AuthenticatedTasksIndexRoute,
   AuthenticatedUsersIndexRoute: AuthenticatedUsersIndexRoute,
+  AuthenticatedPsychologyTestTestIdQuestionsRoute:
+    AuthenticatedPsychologyTestTestIdQuestionsRoute,
+  AuthenticatedPsychologyTestTestIdReportRoute:
+    AuthenticatedPsychologyTestTestIdReportRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
