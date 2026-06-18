@@ -21,6 +21,17 @@ import {
   AudioWaveform,
   Command,
   GalleryVerticalEnd,
+  Brain,
+  BookOpen,
+  FolderPlus,
+  List,
+  FilePlus,
+  FileText,
+  PlusCircle,
+  ClipboardList,
+  Database,
+  UserPlus,
+  CreditCard,
 } from 'lucide-react'
 import { ClerkLogo } from '@/assets/clerk-logo'
 import { type SidebarData } from '../types'
@@ -95,6 +106,78 @@ export const sidebarData: SidebarData = {
               url: '/clerk/user-management',
             },
           ],
+        },
+        // ── إرشاد ──────────────────────────────────────────────
+        {
+          title: 'لوحة القيادة',
+          icon: LayoutDashboard,
+          items: [
+            {
+              title: 'التحليل',
+              url: '/',
+            },
+            {
+              title: 'المستشارين',
+              url: '/Consultant',
+            },
+          ],
+        },
+        {
+          title: 'فئة المقالات',
+          icon: BookOpen,
+          items: [
+            {
+              title: 'إضافة فئة جديدة',
+              url: '/ArticlesCategory/CreateCategories',
+            },
+            {
+              title: 'عرض جميع الفئات',
+              url: '/ArticlesCategory',
+            },
+          ],
+        },
+        {
+          title: 'إدارة المقالات',
+          icon: FileText,
+          items: [
+            {
+              title: 'إضافة مقال',
+              url: '/AddArticle',
+            },
+            {
+              title: 'عرض جميع المقالات',
+              url: '/Articles',
+            },
+          ],
+        },
+        {
+          title: 'الاختبارات النفسية',
+          icon: Brain,
+          items: [
+            {
+              title: 'إضافة اختبار جديد',
+              url: '/PsychologyTest/Create',
+            },
+            {
+              title: 'الاختبارات',
+              url: '/PsychologyTest',
+            },
+          ],
+        },
+        {
+          title: 'القيم المرجعية',
+          url: '/Lookup',
+          icon: Database,
+        },
+        {
+          title: 'تسجيل مشرف',
+          url: '/RegisterAdmin',
+          icon: UserPlus,
+        },
+        {
+          title: 'الخطط والأسعار',
+          url: '/Subscription',
+          icon: CreditCard,
         },
       ],
     },

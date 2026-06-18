@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { z } from 'zod'
+import { AxiosError } from 'axios'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Link, useNavigate } from '@tanstack/react-router'
@@ -7,7 +8,8 @@ import { Loader2, LogIn } from 'lucide-react'
 import { toast } from 'sonner'
 import { IconFacebook, IconGithub } from '@/assets/brand-icons'
 import { useAuthStore } from '@/stores/auth-store'
-import { sleep, cn } from '@/lib/utils'
+import { api } from '@/lib/api'
+import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -30,6 +32,18 @@ const formSchema = z.object({
     .min(7, 'Password must be at least 7 characters long.'),
 })
 
+interface LoginResponse {
+  succeeded: boolean
+  status: string
+  message: string | null
+  data: {
+    token: string
+    userId: string
+    userName: string
+  } | null
+  error: unknown
+}
+
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLFormElement> {
   redirectTo?: string
 }
@@ -51,34 +65,47 @@ export function UserAuthForm({
     },
   })
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
+  async function onSubmit(data: z.infer<typeof formSchema>) {
     setIsLoading(true)
+    try {
+      const response = await api.post<LoginResponse>('/api/Auth/login', {
+        email: data.email,
+        password: data.password,
+      })
 
-    toast.promise(sleep(2000), {
-      loading: 'Signing in...',
-      success: () => {
-        setIsLoading(false)
+      const { succeeded, data: payload, message } = response.data
 
-        // Mock successful authentication with expiry computed at success time
-        const mockUser = {
-          accountNo: 'ACC001',
-          email: data.email,
-          role: ['user'],
-          exp: Date.now() + 24 * 60 * 60 * 1000, // 24 hours from now
-        }
+      if (!succeeded || !payload) {
+        toast.error(message ?? 'Invalid credentials')
+        return
+      }
 
-        // Set user and access token
-        auth.setUser(mockUser)
-        auth.setAccessToken('mock-access-token')
+      // Store the JWT token
+      auth.setAccessToken(payload.token)
 
-        // Redirect to the stored location or default to dashboard
-        const targetPath = redirectTo || '/'
-        navigate({ to: targetPath, replace: true })
+      // Build a user object from the response
+      auth.setUser({
+        accountNo: payload.userId,
+        email: data.email,
+        role: ['user'],
+        exp: Date.now() + 24 * 60 * 60 * 1000, // 24 hrs — replace with decoded JWT exp if needed
+      })
 
-        return `Welcome back, ${data.email}!`
-      },
-      error: 'Error',
-    })
+      toast.success(`Welcome back, ${payload.userName}!`)
+      navigate({ to: redirectTo ?? '/', replace: true })
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        const msg =
+          err.response?.data?.message ??
+          err.response?.data?.title ??
+          'Sign in failed. Please try again.'
+        toast.error(msg)
+      } else {
+        toast.error('An unexpected error occurred.')
+      }
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
