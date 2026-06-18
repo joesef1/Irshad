@@ -23,15 +23,13 @@ import {
   GalleryVerticalEnd,
   Brain,
   BookOpen,
-  FolderPlus,
-  List,
-  FilePlus,
   FileText,
-  PlusCircle,
-  ClipboardList,
   Database,
   UserPlus,
   CreditCard,
+  MessageCircleQuestion,
+  Headset,
+  ShieldEllipsis,
 } from 'lucide-react'
 import { ClerkLogo } from '@/assets/clerk-logo'
 import { type SidebarData } from '../types'
@@ -274,6 +272,21 @@ export const sidebarData: SidebarData = {
               title: 'Display',
               url: '/settings/display',
               icon: Monitor,
+            },
+            {
+              title: 'FAQs',
+              url: '/settings/faqs',
+              icon: MessageCircleQuestion,
+            },
+            {
+              title: 'Support',
+              url: '/settings/support',
+              icon: Headset,
+            },
+            {
+              title: 'Privacy',
+              url: '/settings/privacy',
+              icon: ShieldEllipsis,
             },
           ],
         },
