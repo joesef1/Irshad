@@ -169,7 +169,7 @@ export const sidebarData: SidebarData = {
         },
         {
           title: 'تسجيل مشرف',
-          url: '/RegisterAdmin',
+          url: '/off-register',
           icon: UserPlus,
         },
         {

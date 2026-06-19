@@ -44,6 +44,8 @@ type Props = {
   fetchFn: () => Promise<LookupItem[]>
   addFn: (name: string) => Promise<void>
   placeholder?: string
+  /** Key used to read the display name from each item. Defaults to "name". */
+  nameKey?: string
 }
 
 export function LookupAddListSection({
@@ -53,6 +55,7 @@ export function LookupAddListSection({
   fetchFn,
   addFn,
   placeholder,
+  nameKey = 'name',
 }: Props) {
   const queryClient = useQueryClient()
 
@@ -167,7 +170,7 @@ export function LookupAddListSection({
                           {item.id}
                         </TableCell>
                         <TableCell className='font-medium'>
-                          {item.name}
+                          {String(item[nameKey] ?? '—')}
                         </TableCell>
                       </TableRow>
                     ))
