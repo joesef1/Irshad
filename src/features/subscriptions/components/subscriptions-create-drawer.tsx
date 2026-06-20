@@ -1,7 +1,7 @@
 import { z } from 'zod'
-import { useForm, useFieldArray, type Resolver } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm, useFieldArray } from 'react-hook-form'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { standardSchemaResolver as zodResolver } from '@hookform/resolvers/standard-schema'
 import { Plus, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
@@ -30,11 +30,11 @@ import {
 
 const formSchema = z.object({
   name: z.string().min(1, 'Plan name is required.'),
-  durationInDays: z.coerce
+  durationInDays: z
     .number()
     .int('Enter a valid whole number.')
     .positive('Duration must be positive.'),
-  price: z.coerce.number().nonnegative('Price must be 0 or more.'),
+  price: z.number().nonnegative('Price must be 0 or more.'),
   benefits: z
     .array(
       z.object({ description: z.string().min(1, 'Benefit cannot be empty.') })
@@ -53,9 +53,7 @@ export function SubscriptionsCreateDrawer({ open, onOpenChange }: Props) {
   const queryClient = useQueryClient()
 
   const form = useForm<SubscriptionForm>({
-    resolver: zodResolver(formSchema) as ReturnType<
-      typeof zodResolver<typeof formSchema>
-    >,
+    resolver: zodResolver(formSchema),
     defaultValues: {
       name: '',
       durationInDays: 30,
@@ -64,7 +62,7 @@ export function SubscriptionsCreateDrawer({ open, onOpenChange }: Props) {
     },
   })
 
-  const { fields, append, remove } = useFieldArray<SubscriptionForm>({
+  const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: 'benefits',
   })
@@ -132,7 +130,13 @@ export function SubscriptionsCreateDrawer({ open, onOpenChange }: Props) {
                 <FormItem>
                   <FormLabel>Duration (days)</FormLabel>
                   <FormControl>
-                    <Input {...field} type='number' min={1} placeholder='30' />
+                    <Input
+                      {...field}
+                      type='number'
+                      min={1}
+                      placeholder='30'
+                      onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -153,6 +157,7 @@ export function SubscriptionsCreateDrawer({ open, onOpenChange }: Props) {
                       min={0}
                       step='0.01'
                       placeholder='9.99'
+                      onChange={(e) => field.onChange(e.target.valueAsNumber)}
                     />
                   </FormControl>
                   <FormMessage />

@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { standardSchemaResolver as zodResolver } from '@hookform/resolvers/standard-schema'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import {

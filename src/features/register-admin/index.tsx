@@ -1,18 +1,11 @@
 import { useState } from 'react'
 import { z } from 'zod'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { AxiosError } from 'axios'
+import { useForm } from 'react-hook-form'
+import { standardSchemaResolver as zodResolver } from '@hookform/resolvers/standard-schema'
 import { UserPlus } from 'lucide-react'
 import { toast } from 'sonner'
 import { api } from '@/lib/api'
-import { ConfigDrawer } from '@/components/config-drawer'
-import { Header } from '@/components/layout/header'
-import { Main } from '@/components/layout/main'
-import { PasswordInput } from '@/components/password-input'
-import { ProfileDropdown } from '@/components/profile-dropdown'
-import { Search } from '@/components/search'
-import { ThemeSwitch } from '@/components/theme-switch'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -30,6 +23,13 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { ConfigDrawer } from '@/components/config-drawer'
+import { Header } from '@/components/layout/header'
+import { Main } from '@/components/layout/main'
+import { PasswordInput } from '@/components/password-input'
+import { ProfileDropdown } from '@/components/profile-dropdown'
+import { Search } from '@/components/search'
+import { ThemeSwitch } from '@/components/theme-switch'
 
 const formSchema = z.object({
   fullName: z.string().optional(),
@@ -106,9 +106,7 @@ export function RegisterAdmin() {
 
       <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
         <div>
-          <h2 className='text-2xl font-bold tracking-tight'>
-            تسجيل مشرف جديد
-          </h2>
+          <h2 className='text-2xl font-bold tracking-tight'>تسجيل مشرف جديد</h2>
           <p className='text-muted-foreground'>
             Register a new admin account with the required credentials.
           </p>
@@ -137,7 +135,7 @@ export function RegisterAdmin() {
                     <FormItem>
                       <FormLabel>
                         Full Name{' '}
-                        <span className='text-muted-foreground text-xs'>
+                        <span className='text-xs text-muted-foreground'>
                           (optional)
                         </span>
                       </FormLabel>
@@ -185,7 +183,7 @@ export function RegisterAdmin() {
                   type='submit'
                   form='register-admin-form'
                   disabled={isLoading}
-                  className='self-end gap-1.5'
+                  className='gap-1.5 self-end'
                 >
                   {isLoading ? (
                     'Registering…'
