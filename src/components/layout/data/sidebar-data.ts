@@ -1,23 +1,23 @@
 import {
-  Construction,
+  // Construction,
   LayoutDashboard,
-  Monitor,
-  Bug,
-  ListTodo,
-  FileX,
-  HelpCircle,
-  Lock,
-  Bell,
-  Package,
-  Palette,
-  ServerOff,
+  // Monitor,
+  // Bug,
+  // ListTodo,
+  // FileX,
+  // HelpCircle,
+  // Lock,
+  // Bell,
+  // Package,
+  // Palette,
+  // ServerOff,
   Settings,
-  Wrench,
-  UserCog,
-  UserX,
-  Users,
-  MessagesSquare,
-  ShieldCheck,
+  // Wrench,
+  // UserCog,
+  // UserX,
+  // Users,
+  // MessagesSquare,
+  // ShieldCheck,
   AudioWaveform,
   Command,
   GalleryVerticalEnd,
@@ -31,7 +31,7 @@ import {
   Headset,
   ShieldEllipsis,
 } from 'lucide-react'
-import { ClerkLogo } from '@/assets/clerk-logo'
+// import { ClerkLogo } from '@/assets/clerk-logo'
 import { type SidebarData } from '../types'
 
 export const sidebarData: SidebarData = {
@@ -61,50 +61,41 @@ export const sidebarData: SidebarData = {
     {
       title: 'General',
       items: [
-        {
-          title: 'Dashboard',
-          url: '/',
-          icon: LayoutDashboard,
-        },
-        {
-          title: 'Tasks',
-          url: '/tasks',
-          icon: ListTodo,
-        },
-        {
-          title: 'Apps',
-          url: '/apps',
-          icon: Package,
-        },
-        {
-          title: 'Chats',
-          url: '/chats',
-          badge: '3',
-          icon: MessagesSquare,
-        },
-        {
-          title: 'Users',
-          url: '/users',
-          icon: Users,
-        },
-        {
-          title: 'Secured by Clerk',
-          icon: ClerkLogo,
-          items: [
-            {
-              title: 'Sign In',
-              url: '/clerk/sign-in',
-            },
-            {
-              title: 'Sign Up',
-              url: '/clerk/sign-up',
-            },
-            {
-              title: 'User Management',
-              url: '/clerk/user-management',
-            },
-          ],
-        },
+        // {
+        //   title: 'Dashboard',
+        //   url: '/',
+        //   icon: LayoutDashboard,
+        // },
+        // {
+        //   title: 'Tasks',
+        //   url: '/tasks',
+        //   icon: ListTodo,
+        // },
+        // {
+        //   title: 'Apps',
+        //   url: '/apps',
+        //   icon: Package,
+        // },
+        // {
+        //   title: 'Chats',
+        //   url: '/chats',
+        //   badge: '3',
+        //   icon: MessagesSquare,
+        // },
+        // {
+        //   title: 'Users',
+        //   url: '/users',
+        //   icon: Users,
+        // },
+        // {
+        //   title: 'Secured by Clerk',
+        //   icon: ClerkLogo,
+        //   items: [
+        //     { title: 'Sign In', url: '/clerk/sign-in' },
+        //     { title: 'Sign Up', url: '/clerk/sign-up' },
+        //     { title: 'User Management', url: '/clerk/user-management' },
+        //   ],
+        // },
         // ── إرشاد ──────────────────────────────────────────────
         {
           title: 'لوحة القيادة',
@@ -124,10 +115,10 @@ export const sidebarData: SidebarData = {
           title: 'فئة المقالات',
           icon: BookOpen,
           items: [
-            {
-              title: 'إضافة فئة جديدة',
-              url: '/ArticlesCategory/CreateCategories',
-            },
+            // {
+            //   title: 'إضافة فئة جديدة',
+            //   url: '/ArticlesCategory/CreateCategories',
+            // },
             {
               title: 'عرض جميع الفئات',
               url: '/ArticlesCategory',
@@ -138,10 +129,10 @@ export const sidebarData: SidebarData = {
           title: 'إدارة المقالات',
           icon: FileText,
           items: [
-            {
-              title: 'إضافة مقال',
-              url: '/AddArticle',
-            },
+            // {
+            //   title: 'إضافة مقال',
+            //   url: '/AddArticle',
+            // },
             {
               title: 'عرض جميع المقالات',
               url: '/Articles',
@@ -152,10 +143,10 @@ export const sidebarData: SidebarData = {
           title: 'الاختبارات النفسية',
           icon: Brain,
           items: [
-            {
-              title: 'إضافة اختبار جديد',
-              url: '/PsychologyTest/Create',
-            },
+            // {
+            //   title: 'إضافة اختبار جديد',
+            //   url: '/PsychologyTest/Create',
+            // },
             {
               title: 'الاختبارات',
               url: '/PsychologyTest',
@@ -179,68 +170,33 @@ export const sidebarData: SidebarData = {
         },
       ],
     },
-    {
-      title: 'Pages',
-      items: [
-        {
-          title: 'Auth',
-          icon: ShieldCheck,
-          items: [
-            {
-              title: 'Sign In',
-              url: '/sign-in',
-            },
-            {
-              title: 'Sign In (2 Col)',
-              url: '/sign-in-2',
-            },
-            {
-              title: 'Sign Up',
-              url: '/sign-up',
-            },
-            {
-              title: 'Forgot Password',
-              url: '/forgot-password',
-            },
-            {
-              title: 'OTP',
-              url: '/otp',
-            },
-          ],
-        },
-        {
-          title: 'Errors',
-          icon: Bug,
-          items: [
-            {
-              title: 'Unauthorized',
-              url: '/errors/unauthorized',
-              icon: Lock,
-            },
-            {
-              title: 'Forbidden',
-              url: '/errors/forbidden',
-              icon: UserX,
-            },
-            {
-              title: 'Not Found',
-              url: '/errors/not-found',
-              icon: FileX,
-            },
-            {
-              title: 'Internal Server Error',
-              url: '/errors/internal-server-error',
-              icon: ServerOff,
-            },
-            {
-              title: 'Maintenance Error',
-              url: '/errors/maintenance-error',
-              icon: Construction,
-            },
-          ],
-        },
-      ],
-    },
+    // {
+    //   title: 'Pages',
+    //   items: [
+    //     {
+    //       title: 'Auth',
+    //       icon: ShieldCheck,
+    //       items: [
+    //         { title: 'Sign In', url: '/sign-in' },
+    //         { title: 'Sign In (2 Col)', url: '/sign-in-2' },
+    //         { title: 'Sign Up', url: '/sign-up' },
+    //         { title: 'Forgot Password', url: '/forgot-password' },
+    //         { title: 'OTP', url: '/otp' },
+    //       ],
+    //     },
+    //     {
+    //       title: 'Errors',
+    //       icon: Bug,
+    //       items: [
+    //         { title: 'Unauthorized', url: '/errors/unauthorized', icon: Lock },
+    //         { title: 'Forbidden', url: '/errors/forbidden', icon: UserX },
+    //         { title: 'Not Found', url: '/errors/not-found', icon: FileX },
+    //         { title: 'Internal Server Error', url: '/errors/internal-server-error', icon: ServerOff },
+    //         { title: 'Maintenance Error', url: '/errors/maintenance-error', icon: Construction },
+    //       ],
+    //     },
+    //   ],
+    // },
     {
       title: 'Other',
       items: [
@@ -248,31 +204,31 @@ export const sidebarData: SidebarData = {
           title: 'Settings',
           icon: Settings,
           items: [
-            {
-              title: 'Profile',
-              url: '/settings',
-              icon: UserCog,
-            },
-            {
-              title: 'Account',
-              url: '/settings/account',
-              icon: Wrench,
-            },
-            {
-              title: 'Appearance',
-              url: '/settings/appearance',
-              icon: Palette,
-            },
-            {
-              title: 'Notifications',
-              url: '/settings/notifications',
-              icon: Bell,
-            },
-            {
-              title: 'Display',
-              url: '/settings/display',
-              icon: Monitor,
-            },
+            // {
+            //   title: 'Profile',
+            //   url: '/settings',
+            //   icon: UserCog,
+            // },
+            // {
+            //   title: 'Account',
+            //   url: '/settings/account',
+            //   icon: Wrench,
+            // },
+            // {
+            //   title: 'Appearance',
+            //   url: '/settings/appearance',
+            //   icon: Palette,
+            // },
+            // {
+            //   title: 'Notifications',
+            //   url: '/settings/notifications',
+            //   icon: Bell,
+            // },
+            // {
+            //   title: 'Display',
+            //   url: '/settings/display',
+            //   icon: Monitor,
+            // },
             {
               title: 'FAQs',
               url: '/settings/faqs',
@@ -290,11 +246,11 @@ export const sidebarData: SidebarData = {
             },
           ],
         },
-        {
-          title: 'Help Center',
-          url: '/help-center',
-          icon: HelpCircle,
-        },
+        // {
+        //   title: 'Help Center',
+        //   url: '/help-center',
+        //   icon: HelpCircle,
+        // },
       ],
     },
   ],

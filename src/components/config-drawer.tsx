@@ -28,6 +28,11 @@ import {
 import { useSidebar } from './ui/sidebar'
 
 export function ConfigDrawer() {
+  // Hidden — gear button removed from header
+  return null
+}
+
+export function ConfigDrawerFull() {
   const { setOpen } = useSidebar()
   const { resetDir } = useDirection()
   const { resetTheme } = useTheme()
