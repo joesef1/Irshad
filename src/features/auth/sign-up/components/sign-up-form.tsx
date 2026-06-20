@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { standardSchemaResolver as zodResolver } from '@hookform/resolvers/standard-schema'
 import { Loader2, UserPlus } from 'lucide-react'
 import { toast } from 'sonner'
-import { IconFacebook, IconGithub } from '@/assets/brand-icons'
+// import { IconFacebook, IconGithub } from '@/assets/brand-icons'
 import { sleep, cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import {
@@ -119,13 +119,13 @@ export function SignUpForm({
             <span className='w-full border-t' />
           </div>
           <div className='relative flex justify-center text-xs uppercase'>
-            <span className='bg-background px-2 text-muted-foreground'>
+            {/* <span className='bg-background px-2 text-muted-foreground'>
               Or continue with
-            </span>
+            </span> */}
           </div>
         </div>
 
-        <div className='grid grid-cols-2 gap-2'>
+        {/* <div className='grid grid-cols-2 gap-2'>
           <Button
             variant='outline'
             className='w-full'
@@ -142,7 +142,7 @@ export function SignUpForm({
           >
             <IconFacebook className='h-4 w-4' /> Facebook
           </Button>
-        </div>
+        </div> */}
       </form>
     </Form>
   )

@@ -6,7 +6,7 @@ import { Link, useNavigate } from '@tanstack/react-router'
 import { standardSchemaResolver as zodResolver } from '@hookform/resolvers/standard-schema'
 import { Loader2, LogIn } from 'lucide-react'
 import { toast } from 'sonner'
-import { IconFacebook, IconGithub } from '@/assets/brand-icons'
+// import { IconFacebook, IconGithub } from '@/assets/brand-icons'
 import { useAuthStore } from '@/stores/auth-store'
 import { api } from '@/lib/api'
 import { cn } from '@/lib/utils'
@@ -157,20 +157,20 @@ export function UserAuthForm({
             <span className='w-full border-t' />
           </div>
           <div className='relative flex justify-center text-xs uppercase'>
-            <span className='bg-background px-2 text-muted-foreground'>
+            {/* <span className='bg-background px-2 text-muted-foreground'>
               Or continue with
-            </span>
+            </span> */}
           </div>
         </div>
 
-        <div className='grid grid-cols-2 gap-2'>
+        {/* <div className='grid grid-cols-2 gap-2'>
           <Button variant='outline' type='button' disabled={isLoading}>
             <IconGithub className='h-4 w-4' /> GitHub
           </Button>
           <Button variant='outline' type='button' disabled={isLoading}>
             <IconFacebook className='h-4 w-4' /> Facebook
           </Button>
-        </div>
+        </div> */}
       </form>
     </Form>
   )
