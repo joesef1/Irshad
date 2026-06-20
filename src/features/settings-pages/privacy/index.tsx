@@ -29,7 +29,7 @@ import {
 } from '../api/settings-api'
 
 const formSchema = z.object({
-  content: z.string().min(1, 'Content is required.'),
+  content: z.string().min(1, 'المحتوى مطلوب.'),
 })
 type PrivacyForm = z.infer<typeof formSchema>
 
@@ -53,7 +53,7 @@ export function PrivacyPage() {
   const mutation = useMutation({
     mutationFn: (d: PrivacyForm) => updateSecurityAndPrivacy(d.content),
     onSuccess: () => {
-      toast.success('Privacy policy updated.')
+      toast.success('تم تحديث سياسة الخصوصية والأمان.')
       queryClient.invalidateQueries({ queryKey: privacyQueryKey })
     },
     onError: (err: Error) => toast.error(err.message),
@@ -71,10 +71,10 @@ export function PrivacyPage() {
       <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
         <div>
           <h2 className='text-2xl font-bold tracking-tight'>
-            Security & Privacy
+            الخصوصية والأمان
           </h2>
           <p className='text-muted-foreground'>
-            Update the privacy and security policy shown to users.
+            تحديث سياسة الخصوصية والأمان التي تظهر للمستخدمين.
           </p>
         </div>
 
@@ -82,15 +82,15 @@ export function PrivacyPage() {
 
         {isError && (
           <div className='rounded-md border border-red-200 bg-red-50 p-4 text-sm text-destructive dark:bg-red-950/20'>
-            Failed to load privacy policy:{' '}
-            {error instanceof Error ? error.message : 'Unknown error'}
+            فشل تحميل سياسة الخصوصية:{' '}
+            {error instanceof Error ? error.message : 'خطأ غير معروف'}
           </div>
         )}
 
         {!isLoading && !isError && (
           <Card className='max-w-3xl'>
             <CardHeader>
-              <CardTitle className='text-base'>Policy Content</CardTitle>
+              <CardTitle className='text-base'>محتوى السياسة</CardTitle>
             </CardHeader>
             <CardContent>
               <Form {...form}>
@@ -104,12 +104,12 @@ export function PrivacyPage() {
                     name='content'
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Content</FormLabel>
+                        <FormLabel>المحتوى</FormLabel>
                         <FormControl>
                           <Textarea
                             {...field}
                             rows={16}
-                            placeholder='Write the privacy & security policy…'
+                            placeholder='اكتب سياسة الخصوصية والأمان هنا…'
                           />
                         </FormControl>
                         <FormMessage />
@@ -122,7 +122,7 @@ export function PrivacyPage() {
                     disabled={mutation.isPending}
                     className='self-end'
                   >
-                    {mutation.isPending ? 'Saving…' : 'Save changes'}
+                    {mutation.isPending ? 'جارٍ الحفظ…' : 'حفظ التغييرات'}
                   </Button>
                 </form>
               </Form>

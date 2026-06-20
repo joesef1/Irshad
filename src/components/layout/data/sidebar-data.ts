@@ -230,17 +230,17 @@ export const sidebarData: SidebarData = {
             //   icon: Monitor,
             // },
             {
-              title: 'FAQs',
+              title: 'الأسئلة الشائعة',
               url: '/settings/faqs',
               icon: MessageCircleQuestion,
             },
             {
-              title: 'Support',
+              title: 'الدعم الفني',
               url: '/settings/support',
               icon: Headset,
             },
             {
-              title: 'Privacy',
+              title: 'الخصوصية والأمان',
               url: '/settings/privacy',
               icon: ShieldEllipsis,
             },

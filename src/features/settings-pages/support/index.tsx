@@ -61,7 +61,7 @@ export function SupportPage() {
   const mutation = useMutation({
     mutationFn: (d: SupportForm) => updateTechnicalSupport({ ...data, ...d }),
     onSuccess: () => {
-      toast.success('Support info updated.')
+      toast.success('تم تحديث معلومات الدعم الفني.')
       queryClient.invalidateQueries({ queryKey: technicalSupportQueryKey })
     },
     onError: (err: Error) => toast.error(err.message),
@@ -78,11 +78,9 @@ export function SupportPage() {
 
       <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
         <div>
-          <h2 className='text-2xl font-bold tracking-tight'>
-            Technical Support
-          </h2>
+          <h2 className='text-2xl font-bold tracking-tight'>الدعم الفني</h2>
           <p className='text-muted-foreground'>
-            Update the support contact information shown to users.
+            تحديث بيانات التواصل مع الدعم الفني التي تظهر للمستخدمين.
           </p>
         </div>
 
@@ -96,15 +94,15 @@ export function SupportPage() {
 
         {isError && (
           <div className='rounded-md border border-red-200 bg-red-50 p-4 text-sm text-destructive dark:bg-red-950/20'>
-            Failed to load support info:{' '}
-            {error instanceof Error ? error.message : 'Unknown error'}
+            فشل تحميل بيانات الدعم الفني:{' '}
+            {error instanceof Error ? error.message : 'خطأ غير معروف'}
           </div>
         )}
 
         {!isLoading && !isError && (
           <Card className='max-w-lg'>
             <CardHeader>
-              <CardTitle className='text-base'>Contact Details</CardTitle>
+              <CardTitle className='text-base'>بيانات التواصل</CardTitle>
             </CardHeader>
             <CardContent>
               <Form {...form}>
@@ -118,7 +116,7 @@ export function SupportPage() {
                     name='email'
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email</FormLabel>
+                        <FormLabel>البريد الإلكتروني</FormLabel>
                         <FormControl>
                           <Input {...field} placeholder='support@example.com' />
                         </FormControl>
@@ -131,7 +129,7 @@ export function SupportPage() {
                     name='phone'
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Phone</FormLabel>
+                        <FormLabel>رقم الهاتف</FormLabel>
                         <FormControl>
                           <Input {...field} placeholder='+966 5xx xxx xxx' />
                         </FormControl>
@@ -144,7 +142,7 @@ export function SupportPage() {
                     name='whatsapp'
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>WhatsApp</FormLabel>
+                        <FormLabel>واتساب</FormLabel>
                         <FormControl>
                           <Input {...field} placeholder='+966 5xx xxx xxx' />
                         </FormControl>
@@ -158,7 +156,7 @@ export function SupportPage() {
                     disabled={mutation.isPending}
                     className='self-end'
                   >
-                    {mutation.isPending ? 'Saving…' : 'Save changes'}
+                    {mutation.isPending ? 'جارٍ الحفظ…' : 'حفظ التغييرات'}
                   </Button>
                 </form>
               </Form>

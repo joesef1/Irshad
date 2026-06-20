@@ -44,8 +44,8 @@ import {
 } from '../api/settings-api'
 
 const formSchema = z.object({
-  question: z.string().min(1, 'Question is required.'),
-  answer: z.string().min(1, 'Answer is required.'),
+  question: z.string().min(1, 'السؤال مطلوب.'),
+  answer: z.string().min(1, 'الإجابة مطلوبة.'),
 })
 type FaqForm = z.infer<typeof formSchema>
 
@@ -75,7 +75,7 @@ function FaqMutateDrawer({
         ? updateFaq(currentRow!.id, d.question, d.answer)
         : addFaq(d.question, d.answer),
     onSuccess: () => {
-      toast.success(isUpdate ? 'FAQ updated.' : 'FAQ added.')
+      toast.success(isUpdate ? 'تم تحديث السؤال.' : 'تمت إضافة السؤال.')
       queryClient.invalidateQueries({ queryKey: faqsQueryKey })
       onOpenChange(false)
       form.reset()
@@ -96,10 +96,10 @@ function FaqMutateDrawer({
     >
       <SheetContent className='flex flex-col'>
         <SheetHeader className='text-start'>
-          <SheetTitle>{isUpdate ? 'Edit' : 'Add'} FAQ</SheetTitle>
+          <SheetTitle>{isUpdate ? 'تعديل' : 'إضافة'} سؤال شائع</SheetTitle>
           <SheetDescription>
-            {isUpdate ? 'Update the FAQ below.' : 'Add a new FAQ entry.'} Click
-            save when you&apos;re done.
+            {isUpdate ? 'قم بتحديث السؤال أدناه.' : 'أضف سؤالاً شائعاً جديداً.'}{' '}
+            انقر على حفظ عند الانتهاء.
           </SheetDescription>
         </SheetHeader>
 
@@ -114,11 +114,11 @@ function FaqMutateDrawer({
               name='question'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Question</FormLabel>
+                  <FormLabel>السؤال</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      placeholder='e.g. How do I reset my password?'
+                      placeholder='مثال: كيف أعيد تعيين كلمة المرور؟'
                     />
                   </FormControl>
                   <FormMessage />
@@ -130,12 +130,12 @@ function FaqMutateDrawer({
               name='answer'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Answer</FormLabel>
+                  <FormLabel>الإجابة</FormLabel>
                   <FormControl>
                     <Textarea
                       {...field}
                       rows={6}
-                      placeholder='Write the answer…'
+                      placeholder='اكتب الإجابة هنا…'
                     />
                   </FormControl>
                   <FormMessage />
@@ -147,10 +147,10 @@ function FaqMutateDrawer({
 
         <SheetFooter className='gap-2'>
           <SheetClose asChild>
-            <Button variant='outline'>Close</Button>
+            <Button variant='outline'>إغلاق</Button>
           </SheetClose>
           <Button form='faq-form' type='submit' disabled={mutation.isPending}>
-            {mutation.isPending ? 'Saving…' : 'Save changes'}
+            {mutation.isPending ? 'جارٍ الحفظ…' : 'حفظ التغييرات'}
           </Button>
         </SheetFooter>
       </SheetContent>
@@ -172,7 +172,7 @@ export function FaqsPage() {
   const deleteMutation = useMutation({
     mutationFn: () => deleteFaq(currentRow!.id),
     onSuccess: () => {
-      toast.success('FAQ deleted.')
+      toast.success('تم حذف السؤال.')
       queryClient.invalidateQueries({ queryKey: faqsQueryKey })
       setDeleteOpen(false)
       setCurrentRow(null)
@@ -192,9 +192,11 @@ export function FaqsPage() {
       <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
-            <h2 className='text-2xl font-bold tracking-tight'>FAQs</h2>
+            <h2 className='text-2xl font-bold tracking-tight'>
+              الأسئلة الشائعة
+            </h2>
             <p className='text-muted-foreground'>
-              Manage frequently asked questions.
+              إدارة الأسئلة الشائعة التي تظهر للمستخدمين.
             </p>
           </div>
           <Button
@@ -204,7 +206,7 @@ export function FaqsPage() {
               setDrawerOpen(true)
             }}
           >
-            <Plus className='size-4' /> Add FAQ
+            <Plus className='size-4' /> إضافة سؤال
           </Button>
         </div>
 
@@ -218,15 +220,17 @@ export function FaqsPage() {
 
         {isError && (
           <div className='rounded-md border border-red-200 bg-red-50 p-4 text-sm text-destructive dark:bg-red-950/20'>
-            Failed to load FAQs:{' '}
-            {error instanceof Error ? error.message : 'Unknown error'}
+            فشل تحميل الأسئلة الشائعة:{' '}
+            {error instanceof Error ? error.message : 'خطأ غير معروف'}
           </div>
         )}
 
         {data && (
           <div className='flex flex-col gap-3'>
             {data.length === 0 && (
-              <p className='text-sm text-muted-foreground'>No FAQs yet.</p>
+              <p className='text-sm text-muted-foreground'>
+                لا توجد أسئلة شائعة بعد.
+              </p>
             )}
             {data.map((faq) => (
               <Card key={faq.id}>
@@ -284,14 +288,15 @@ export function FaqsPage() {
           onOpenChange={setDeleteOpen}
           handleConfirm={() => deleteMutation.mutate()}
           className='max-w-md'
-          title='Delete this FAQ?'
+          title='حذف هذا السؤال؟'
           desc={
             <>
-              You are about to permanently delete:{' '}
-              <strong>{currentRow.question}</strong>. This cannot be undone.
+              أنت على وشك حذف السؤال نهائياً:{' '}
+              <strong>{currentRow.question}</strong>. لا يمكن التراجع عن هذا
+              الإجراء.
             </>
           }
-          confirmText={deleteMutation.isPending ? 'Deleting…' : 'Delete'}
+          confirmText={deleteMutation.isPending ? 'جارٍ الحذف…' : 'حذف'}
         />
       )}
     </>
