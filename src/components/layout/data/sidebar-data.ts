@@ -201,7 +201,7 @@ export const sidebarData: SidebarData = {
       title: 'Other',
       items: [
         {
-          title: 'Settings',
+          title: 'الاعدادات',
           icon: Settings,
           items: [
             // {
