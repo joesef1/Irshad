@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { useForm, useFieldArray } from 'react-hook-form'
+import { useForm, useFieldArray, type Resolver } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Plus, Trash2 } from 'lucide-react'
@@ -31,12 +31,10 @@ import {
 const formSchema = z.object({
   name: z.string().min(1, 'Plan name is required.'),
   durationInDays: z.coerce
-    .number({ invalid_type_error: 'Enter a valid number.' })
-    .int()
+    .number()
+    .int('Enter a valid whole number.')
     .positive('Duration must be positive.'),
-  price: z.coerce
-    .number({ invalid_type_error: 'Enter a valid number.' })
-    .nonnegative('Price must be 0 or more.'),
+  price: z.coerce.number().nonnegative('Price must be 0 or more.'),
   benefits: z
     .array(
       z.object({ description: z.string().min(1, 'Benefit cannot be empty.') })
@@ -55,7 +53,9 @@ export function SubscriptionsCreateDrawer({ open, onOpenChange }: Props) {
   const queryClient = useQueryClient()
 
   const form = useForm<SubscriptionForm>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema) as ReturnType<
+      typeof zodResolver<typeof formSchema>
+    >,
     defaultValues: {
       name: '',
       durationInDays: 30,
@@ -64,7 +64,7 @@ export function SubscriptionsCreateDrawer({ open, onOpenChange }: Props) {
     },
   })
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove } = useFieldArray<SubscriptionForm>({
     control: form.control,
     name: 'benefits',
   })

@@ -204,9 +204,19 @@ export function ArticlesMutateDrawer({
                   className='h-9 py-0'
                 />
               </FormControl>
-              <FormMessage>
-                {form.formState.errors['image' as never]?.message as string}
-              </FormMessage>
+              {(form.formState.errors as Record<string, { message?: string }>)
+                .image?.message && (
+                <p className='text-sm font-medium text-destructive'>
+                  {
+                    (
+                      form.formState.errors as Record<
+                        string,
+                        { message?: string }
+                      >
+                    ).image?.message
+                  }
+                </p>
+              )}
             </FormItem>
           </form>
         </Form>
