@@ -39,78 +39,74 @@ export function Lookup() {
 
       <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
         <div>
-          <h2 className='text-2xl font-bold tracking-tight'>Lookup Values</h2>
+          <h2 className='text-2xl font-bold tracking-tight'>القيم المرجعية</h2>
           <p className='text-muted-foreground'>
-            Manage reference data used across the application.
+            إدارة البيانات المرجعية المستخدمة في التطبيق.
           </p>
         </div>
 
         <Tabs defaultValue='nationality' className='flex flex-col gap-4'>
           <div className='w-full overflow-x-auto pb-1'>
             <TabsList>
-              <TabsTrigger value='nationality'>Nationality</TabsTrigger>
-              <TabsTrigger value='specialization'>Specialization</TabsTrigger>
-              <TabsTrigger value='contact-time'>Contact Time</TabsTrigger>
-              <TabsTrigger value='static-lists'>Static Lists</TabsTrigger>
+              <TabsTrigger value='nationality'>الجنسيات</TabsTrigger>
+              <TabsTrigger value='specialization'>التخصصات</TabsTrigger>
+              <TabsTrigger value='contact-time'>أوقات التواصل</TabsTrigger>
+              <TabsTrigger value='static-lists'>القوائم الثابتة</TabsTrigger>
             </TabsList>
           </div>
 
-          {/* ── Tab 1: Nationality ── */}
           <TabsContent value='nationality'>
             <LookupAddListSection
-              title='Nationality'
-              addLabel='Nationality'
+              title='الجنسيات'
+              addLabel='جنسية'
               queryKey={nationalitiesQueryKey}
               fetchFn={getAllNationalities}
               addFn={addNationality}
-              placeholder='e.g. Saudi Arabian'
+              placeholder='مثال: سعودي'
             />
           </TabsContent>
 
-          {/* ── Tab 2: Specialization ── */}
           <TabsContent value='specialization'>
             <LookupAddListSection
-              title='Specialization'
-              addLabel='Specialization'
+              title='التخصصات'
+              addLabel='تخصص'
               queryKey={specializationsQueryKey}
               fetchFn={getAllSpecializations}
               addFn={addSpecialization}
-              placeholder='e.g. Marriage Counseling'
+              placeholder='مثال: الإرشاد الزوجي'
             />
           </TabsContent>
 
-          {/* ── Tab 3: Contact Time ── */}
           <TabsContent value='contact-time'>
             <LookupAddListSection
-              title='Contact Time'
-              addLabel='Contact Time'
+              title='أوقات التواصل'
+              addLabel='وقت تواصل'
               queryKey={contactTimesQueryKey}
               fetchFn={getAllContactTimes}
               addFn={addContactTime}
-              placeholder='e.g. Morning (9am – 12pm)'
+              placeholder='مثال: الصباح (9 ص – 12 م)'
             />
           </TabsContent>
 
-          {/* ── Tab 4: Static Lists ── */}
           <TabsContent value='static-lists'>
             <div className='grid gap-4 sm:grid-cols-2'>
               <LookupStaticList
-                title='Gender'
+                title='الجنس'
                 queryKey={gendersQueryKey}
                 fetchFn={getAllGenders}
               />
               <LookupStaticList
-                title='Marital Status'
+                title='الحالة الاجتماعية'
                 queryKey={maritalStatusesQueryKey}
                 fetchFn={getAllMaritalStatuses}
               />
               <LookupStaticList
-                title='Appointment Status'
+                title='حالة الموعد'
                 queryKey={appointmentStatusesQueryKey}
                 fetchFn={getAllAppointmentStatuses}
               />
               <LookupStaticList
-                title='Days of the Week'
+                title='أيام الأسبوع'
                 queryKey={daysQueryKey}
                 fetchFn={getDaysNames}
               />

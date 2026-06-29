@@ -44,7 +44,7 @@ export function SubscriptionsTable({ data }: Props) {
 
   return (
     <div className='flex flex-1 flex-col gap-4'>
-      <DataTableToolbar table={table} searchPlaceholder='Filter plans…' />
+      <DataTableToolbar table={table} searchPlaceholder='تصفية الخطط…' />
       <div className='overflow-hidden rounded-md border'>
         <Table>
           <TableHeader>
@@ -95,7 +95,7 @@ export function SubscriptionsTable({ data }: Props) {
                   colSpan={columns.length}
                   className='h-24 text-center'
                 >
-                  No subscription plans found.
+                  لا توجد خطط اشتراك.
                 </TableCell>
               </TableRow>
             )}

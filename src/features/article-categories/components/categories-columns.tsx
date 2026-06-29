@@ -24,7 +24,7 @@ function RowActions({ category }: { category: Category }) {
           className='flex h-8 w-8 p-0 data-[state=open]:bg-muted'
         >
           <DotsHorizontalIcon className='h-4 w-4' />
-          <span className='sr-only'>Open menu</span>
+          <span className='sr-only'>فتح القائمة</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-36'>
@@ -34,7 +34,7 @@ function RowActions({ category }: { category: Category }) {
             setOpen('update')
           }}
         >
-          Edit
+          تعديل
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
@@ -43,7 +43,7 @@ function RowActions({ category }: { category: Category }) {
             setOpen('delete')
           }}
         >
-          Delete
+          حذف
           <DropdownMenuShortcut>
             <Trash2 size={16} />
           </DropdownMenuShortcut>
@@ -64,7 +64,7 @@ export const categoriesColumns: ColumnDef<Category>[] = [
   {
     accessorKey: 'name',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Category Name' />
+      <DataTableColumnHeader column={column} title='اسم التصنيف' />
     ),
     cell: ({ row }) => (
       <span className='font-medium'>{row.getValue('name')}</span>

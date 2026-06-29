@@ -29,7 +29,7 @@ export const subscriptionsColumns: ColumnDef<Subscription>[] = [
   {
     accessorKey: 'name',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Plan Name' />
+      <DataTableColumnHeader column={column} title='اسم الخطة' />
     ),
     cell: ({ row }) => (
       <span className='font-medium'>{row.getValue('name')}</span>
@@ -38,7 +38,7 @@ export const subscriptionsColumns: ColumnDef<Subscription>[] = [
   {
     id: 'duration',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Duration' />
+      <DataTableColumnHeader column={column} title='المدة' />
     ),
     cell: ({ row }) => {
       // Accept both field name variants
@@ -47,7 +47,7 @@ export const subscriptionsColumns: ColumnDef<Subscription>[] = [
         (row.original.duration as number | null | undefined)
       return (
         <span className='text-muted-foreground'>
-          {days != null ? `${days} days` : '—'}
+          {days != null ? `${days} يوم` : '—'}
         </span>
       )
     },
@@ -55,7 +55,7 @@ export const subscriptionsColumns: ColumnDef<Subscription>[] = [
   {
     accessorKey: 'price',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Price' />
+      <DataTableColumnHeader column={column} title='السعر' />
     ),
     cell: ({ row }) => {
       const price = row.getValue<number | null>('price')
@@ -68,7 +68,7 @@ export const subscriptionsColumns: ColumnDef<Subscription>[] = [
   },
   {
     id: 'benefits',
-    header: () => <span className='text-xs font-medium'>Benefits</span>,
+    header: () => <span className='text-xs font-medium'>المزايا</span>,
     cell: ({ row }) => {
       const benefits = row.original.benefits as unknown[] | null | undefined
       if (!benefits?.length)

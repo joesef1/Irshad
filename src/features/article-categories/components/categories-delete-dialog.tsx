@@ -22,7 +22,7 @@ export function CategoriesDeleteDialog({
   const mutation = useMutation({
     mutationFn: () => deleteCategory(category.id),
     onSuccess: () => {
-      toast.success('Category deleted.')
+      toast.success('تم حذف التصنيف.')
       queryClient.invalidateQueries({ queryKey: categoriesQueryKey })
       onOpenChange(false)
       onDeleted()
@@ -37,14 +37,14 @@ export function CategoriesDeleteDialog({
       onOpenChange={onOpenChange}
       handleConfirm={() => mutation.mutate()}
       className='max-w-md'
-      title={`Delete "${category.name}"?`}
+      title={`حذف "${category.name}"؟`}
       desc={
         <>
-          You are about to permanently delete the category{' '}
-          <strong>{category.name}</strong>. This action cannot be undone.
+          أنت على وشك حذف التصنيف <strong>{category.name}</strong> بشكل نهائي.
+          لا يمكن التراجع عن هذا الإجراء.
         </>
       }
-      confirmText={mutation.isPending ? 'Deleting…' : 'Delete'}
+      confirmText={mutation.isPending ? 'جارٍ الحذف…' : 'حذف'}
     />
   )
 }

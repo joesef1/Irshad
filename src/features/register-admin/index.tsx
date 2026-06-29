@@ -33,11 +33,11 @@ import { ThemeSwitch } from '@/components/theme-switch'
 
 const formSchema = z.object({
   fullName: z.string().optional(),
-  email: z.email({ error: () => 'Please enter a valid email.' }),
+  email: z.email({ error: () => 'يرجى إدخال بريد إلكتروني صالح.' }),
   password: z
     .string()
-    .min(1, 'Password is required.')
-    .min(8, 'Password must be at least 8 characters.'),
+    .min(1, 'كلمة المرور مطلوبة.')
+    .min(8, 'يجب أن تكون كلمة المرور 8 أحرف على الأقل.'),
 })
 
 type RegisterAdminForm = z.infer<typeof formSchema>
@@ -74,21 +74,21 @@ export function RegisterAdmin() {
       const { succeeded, message } = response.data
 
       if (!succeeded) {
-        toast.error(message ?? 'Registration failed.')
+        toast.error(message ?? 'فشل التسجيل.')
         return
       }
 
-      toast.success('Admin registered successfully.')
+      toast.success('تم تسجيل المشرف بنجاح.')
       form.reset()
     } catch (err) {
       if (err instanceof AxiosError) {
         const msg =
           err.response?.data?.message ??
           err.response?.data?.title ??
-          'Registration failed. Please try again.'
+          'فشل التسجيل. يرجى المحاولة مرة أخرى.'
         toast.error(msg)
       } else {
-        toast.error('An unexpected error occurred.')
+        toast.error('حدث خطأ غير متوقع.')
       }
     } finally {
       setIsLoading(false)
@@ -108,17 +108,17 @@ export function RegisterAdmin() {
         <div>
           <h2 className='text-2xl font-bold tracking-tight'>تسجيل مشرف جديد</h2>
           <p className='text-muted-foreground'>
-            Register a new admin account with the required credentials.
+            تسجيل حساب مشرف جديد بالبيانات المطلوبة.
           </p>
         </div>
 
         <Card className='max-w-md'>
           <CardHeader>
             <CardTitle className='flex items-center gap-2 text-base'>
-              <UserPlus className='size-4' /> Admin Details
+              <UserPlus className='size-4' /> بيانات المشرف
             </CardTitle>
             <CardDescription>
-              All registered admins will have admin-level access.
+              سيحصل جميع المشرفين المسجلين على صلاحيات مستوى المشرف.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -134,13 +134,13 @@ export function RegisterAdmin() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>
-                        Full Name{' '}
+                        الاسم الكامل{' '}
                         <span className='text-xs text-muted-foreground'>
-                          (optional)
+                          (اختياري)
                         </span>
                       </FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder='e.g. Ahmed Al-Rashidi' />
+                        <Input {...field} placeholder='مثال: أحمد الرشيدي' />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -152,7 +152,7 @@ export function RegisterAdmin() {
                   name='email'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
+                      <FormLabel>البريد الإلكتروني</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
@@ -170,7 +170,7 @@ export function RegisterAdmin() {
                   name='password'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel>كلمة المرور</FormLabel>
                       <FormControl>
                         <PasswordInput {...field} placeholder='••••••••' />
                       </FormControl>
@@ -186,10 +186,10 @@ export function RegisterAdmin() {
                   className='gap-1.5 self-end'
                 >
                   {isLoading ? (
-                    'Registering…'
+                    'جاري التسجيل…'
                   ) : (
                     <>
-                      <UserPlus className='size-4' /> Register Admin
+                      <UserPlus className='size-4' /> تسجيل مشرف
                     </>
                   )}
                 </Button>

@@ -101,7 +101,7 @@ export function ConsultantDetails({ consultantId }: Props) {
   const approveMutation = useMutation({
     mutationFn: () => approveConsultant(consultantId),
     onSuccess: () => {
-      toast.success('Consultant approval status updated')
+      toast.success('تم تحديث حالة الموافقة على المستشار.')
       invalidate()
     },
     onError: (err: Error) => toast.error(err.message),
@@ -110,7 +110,7 @@ export function ConsultantDetails({ consultantId }: Props) {
   const blockMutation = useMutation({
     mutationFn: () => blockConsultant(consultantId),
     onSuccess: () => {
-      toast.success('Consultant block status updated')
+      toast.success('تم تحديث حالة حظر المستشار.')
       invalidate()
     },
     onError: (err: Error) => toast.error(err.message),
@@ -119,7 +119,7 @@ export function ConsultantDetails({ consultantId }: Props) {
   const deleteMutation = useMutation({
     mutationFn: () => deleteConsultant(consultantId),
     onSuccess: () => {
-      toast.success('Consultant deleted')
+      toast.success('تم حذف المستشار.')
       queryClient.invalidateQueries({ queryKey: consultantsQueryKey })
       navigate({ to: '/Consultant' })
     },
@@ -144,8 +144,8 @@ export function ConsultantDetails({ consultantId }: Props) {
   if (isError || !consultant) {
     return (
       <div className='rounded-md border border-red-200 bg-red-50 p-4 text-sm text-destructive dark:bg-red-950/20'>
-        Failed to load consultant:{' '}
-        {error instanceof Error ? error.message : 'Unknown error'}
+        فشل تحميل بيانات المستشار:{' '}
+        {error instanceof Error ? error.message : 'خطأ غير معروف'}
       </div>
     )
   }
@@ -165,7 +165,7 @@ export function ConsultantDetails({ consultantId }: Props) {
 
   return (
     <div className='flex flex-col gap-6'>
-      {/* Back + Actions */}
+      {/* زر الرجوع والإجراءات */}
       <div className='flex flex-wrap items-center justify-between gap-3'>
         <Button
           variant='ghost'
@@ -174,7 +174,7 @@ export function ConsultantDetails({ consultantId }: Props) {
           className='gap-1.5'
         >
           <ArrowLeft className='size-4' />
-          Back to Consultants
+          العودة إلى المستشارين
         </Button>
 
         <div className='flex flex-wrap gap-2'>
@@ -186,7 +186,7 @@ export function ConsultantDetails({ consultantId }: Props) {
             className='gap-1.5'
           >
             <ShieldCheck className='size-4' />
-            {approveMutation.isPending ? 'Updating…' : 'Toggle Approve'}
+            {approveMutation.isPending ? 'جارٍ التحديث…' : 'تبديل الموافقة'}
           </Button>
 
           <Button
@@ -197,7 +197,7 @@ export function ConsultantDetails({ consultantId }: Props) {
             className='gap-1.5 text-amber-600 hover:text-amber-600'
           >
             <ShieldOff className='size-4' />
-            {blockMutation.isPending ? 'Updating…' : 'Toggle Block'}
+            {blockMutation.isPending ? 'جارٍ التحديث…' : 'تبديل الحظر'}
           </Button>
 
           <AlertDialog open={deleteOpen} onOpenChange={setDeleteOpen}>
@@ -209,25 +209,25 @@ export function ConsultantDetails({ consultantId }: Props) {
                 className='gap-1.5'
               >
                 <Trash2 className='size-4' />
-                Delete
+                حذف
               </Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Delete consultant?</AlertDialogTitle>
+                <AlertDialogTitle>حذف المستشار؟</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This will permanently delete{' '}
-                  <strong>{consultant.fullName ?? consultant.userName}</strong>.
-                  This action cannot be undone.
+                  سيتم حذف{' '}
+                  <strong>{consultant.fullName ?? consultant.userName}</strong>{' '}
+                  بشكل نهائي. لا يمكن التراجع عن هذا الإجراء.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogCancel>إلغاء</AlertDialogCancel>
                 <AlertDialogAction
                   onClick={() => deleteMutation.mutate()}
                   className='text-destructive-foreground bg-destructive hover:bg-destructive/90'
                 >
-                  {deleteMutation.isPending ? 'Deleting…' : 'Delete'}
+                  {deleteMutation.isPending ? 'جارٍ الحذف…' : 'حذف'}
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
@@ -235,7 +235,7 @@ export function ConsultantDetails({ consultantId }: Props) {
         </div>
       </div>
 
-      {/* Profile header */}
+      {/* بطاقة الملف الشخصي */}
       <Card>
         <CardContent className='flex flex-wrap items-center gap-4 pt-6'>
           <Avatar className='size-16'>
@@ -259,40 +259,40 @@ export function ConsultantDetails({ consultantId }: Props) {
         </CardContent>
       </Card>
 
-      {/* Personal info */}
+      {/* المعلومات الشخصية */}
       <Card>
         <CardHeader>
           <CardTitle className='flex items-center gap-2 text-base'>
             <User className='size-4' />
-            Personal Information
+            المعلومات الشخصية
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className='grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-3'>
-            <InfoRow label='Email' value={consultant.email} />
-            <InfoRow label='Phone' value={consultant.phoneNumber} />
-            <InfoRow label='WhatsApp' value={consultant.whatsAppNumber} />
-            <InfoRow label='Nationality' value={consultant.nationality} />
-            <InfoRow label='Gender' value={consultant.gender} />
-            <InfoRow label='Marital Status' value={consultant.maritalStatus} />
+            <InfoRow label='البريد الإلكتروني' value={consultant.email} />
+            <InfoRow label='الهاتف' value={consultant.phoneNumber} />
+            <InfoRow label='واتساب' value={consultant.whatsAppNumber} />
+            <InfoRow label='الجنسية' value={consultant.nationality} />
+            <InfoRow label='الجنس' value={consultant.gender} />
             <InfoRow
-              label='Identity Number'
-              value={consultant.identityNumber}
+              label='الحالة الاجتماعية'
+              value={consultant.maritalStatus}
             />
-            <InfoRow label='Qualification' value={consultant.qualification} />
+            <InfoRow label='رقم الهوية' value={consultant.identityNumber} />
+            <InfoRow label='المؤهل' value={consultant.qualification} />
             <InfoRow
-              label='Experience'
+              label='سنوات الخبرة'
               value={
                 consultant.experienceYears
-                  ? `${consultant.experienceYears} years`
+                  ? `${consultant.experienceYears} سنوات`
                   : null
               }
             />
             <InfoRow
-              label='Joined'
+              label='تاريخ الانضمام'
               value={
                 consultant.createdDate
-                  ? new Date(consultant.createdDate).toLocaleDateString()
+                  ? new Date(consultant.createdDate).toLocaleDateString('ar')
                   : null
               }
             />
@@ -304,7 +304,7 @@ export function ConsultantDetails({ consultantId }: Props) {
                 <Separator className='my-4' />
                 <div className='flex flex-col gap-2'>
                   <span className='text-xs text-muted-foreground'>
-                    Contact Times
+                    أوقات التواصل
                   </span>
                   <div className='flex flex-wrap gap-2'>
                     {consultant.userContactTimes.map((t, i) => (
@@ -319,28 +319,25 @@ export function ConsultantDetails({ consultantId }: Props) {
         </CardContent>
       </Card>
 
-      {/* Uploaded files */}
+      {/* الملفات المرفوعة */}
       {hasFiles && (
         <Card>
           <CardHeader>
             <CardTitle className='flex items-center gap-2 text-base'>
               <FileText className='size-4' />
-              Uploaded Documents
+              الوثائق المرفوعة
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className='grid grid-cols-1 gap-2 sm:grid-cols-2'>
+              <FileLink label='وثيقة الهوية' url={consultant.identityFileUrl} />
               <FileLink
-                label='Identity Document'
-                url={consultant.identityFileUrl}
-              />
-              <FileLink
-                label='Qualification Certificate'
+                label='شهادة المؤهل'
                 url={consultant.qualificationFileUrl}
               />
-              <FileLink label='Address Proof' url={consultant.addressFileUrl} />
+              <FileLink label='إثبات العنوان' url={consultant.addressFileUrl} />
               <FileLink
-                label='Personal / CV'
+                label='السيرة الذاتية'
                 url={consultant.personalFileUrl}
               />
             </div>

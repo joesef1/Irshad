@@ -31,7 +31,7 @@ function RowActions({ test }: { test: PsychologyTest }) {
           className='flex h-8 w-8 p-0 data-[state=open]:bg-muted'
         >
           <DotsHorizontalIcon className='h-4 w-4' />
-          <span className='sr-only'>Open menu</span>
+          <span className='sr-only'>فتح القائمة</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-36'>
@@ -41,7 +41,7 @@ function RowActions({ test }: { test: PsychologyTest }) {
             setOpen('update')
           }}
         >
-          Edit
+          تعديل
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
@@ -50,7 +50,7 @@ function RowActions({ test }: { test: PsychologyTest }) {
             setOpen('delete')
           }}
         >
-          Delete
+          حذف
           <DropdownMenuShortcut>
             <Trash2 size={16} />
           </DropdownMenuShortcut>
@@ -71,7 +71,7 @@ export const psychologyTestsColumns: ColumnDef<PsychologyTest>[] = [
   {
     accessorKey: 'title',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Title' />
+      <DataTableColumnHeader column={column} title='العنوان' />
     ),
     cell: ({ row }) => (
       <span className='font-medium'>{row.getValue('title')}</span>
@@ -80,13 +80,13 @@ export const psychologyTestsColumns: ColumnDef<PsychologyTest>[] = [
   {
     accessorKey: 'isFree',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Type' />
+      <DataTableColumnHeader column={column} title='النوع' />
     ),
     cell: ({ row }) => {
       const isFree = row.getValue<boolean>('isFree')
       return (
         <Badge variant={isFree ? 'secondary' : 'default'}>
-          {isFree ? 'Free' : 'Paid'}
+          {isFree ? 'مجاني' : 'مدفوع'}
         </Badge>
       )
     },
@@ -94,7 +94,7 @@ export const psychologyTestsColumns: ColumnDef<PsychologyTest>[] = [
   {
     accessorKey: 'price',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Price' />
+      <DataTableColumnHeader column={column} title='السعر' />
     ),
     cell: ({ row }) => {
       const price = row.getValue<number | null>('price')
@@ -108,7 +108,7 @@ export const psychologyTestsColumns: ColumnDef<PsychologyTest>[] = [
   {
     accessorKey: 'createdDate',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Created' />
+      <DataTableColumnHeader column={column} title='تاريخ الإنشاء' />
     ),
     cell: ({ row }) => {
       const date = row.getValue<string | null>('createdDate')
@@ -123,7 +123,7 @@ export const psychologyTestsColumns: ColumnDef<PsychologyTest>[] = [
     id: 'report',
     header: () => (
       <span className='flex items-center gap-1 text-xs font-medium text-muted-foreground'>
-        <FileText size={13} /> Report
+        <FileText size={13} /> التقرير
       </span>
     ),
     cell: ({ row }) => (
@@ -133,13 +133,13 @@ export const psychologyTestsColumns: ColumnDef<PsychologyTest>[] = [
             <Link
               to='/PsychologyTest/$testId/report'
               params={{ testId: String(row.original.id) }}
-              aria-label='View scoring rules'
+              aria-label='عرض قواعد التقييم'
             >
               <FileText className='size-4' />
             </Link>
           </Button>
         </TooltipTrigger>
-        <TooltipContent>Scoring Rules</TooltipContent>
+        <TooltipContent>قواعد التقييم</TooltipContent>
       </Tooltip>
     ),
     enableSorting: false,
@@ -149,7 +149,7 @@ export const psychologyTestsColumns: ColumnDef<PsychologyTest>[] = [
     id: 'questions',
     header: () => (
       <span className='flex items-center gap-1 text-xs font-medium text-muted-foreground'>
-        <HelpCircle size={13} /> Questions
+        <HelpCircle size={13} /> الأسئلة
       </span>
     ),
     cell: ({ row }) => (
@@ -159,13 +159,13 @@ export const psychologyTestsColumns: ColumnDef<PsychologyTest>[] = [
             <Link
               to='/PsychologyTest/$testId/questions'
               params={{ testId: String(row.original.id) }}
-              aria-label='View questions'
+              aria-label='عرض الأسئلة'
             >
               <HelpCircle className='size-4' />
             </Link>
           </Button>
         </TooltipTrigger>
-        <TooltipContent>Questions</TooltipContent>
+        <TooltipContent>الأسئلة</TooltipContent>
       </Tooltip>
     ),
     enableSorting: false,

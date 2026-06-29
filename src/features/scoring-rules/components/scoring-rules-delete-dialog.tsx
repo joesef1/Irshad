@@ -27,7 +27,7 @@ export function ScoringRulesDeleteDialog({
   const mutation = useMutation({
     mutationFn: () => deleteScoringRule(rule.id),
     onSuccess: () => {
-      toast.success('Scoring rule deleted.')
+      toast.success('تم حذف قاعدة التقييم.')
       queryClient.invalidateQueries({ queryKey: scoringRulesQueryKey(testId) })
       onOpenChange(false)
       onDeleted()
@@ -42,17 +42,17 @@ export function ScoringRulesDeleteDialog({
       onOpenChange={onOpenChange}
       handleConfirm={() => mutation.mutate()}
       className='max-w-md'
-      title={`Delete scoring rule #${rule.id}?`}
+      title={`حذف قاعدة التقييم #${rule.id}؟`}
       desc={
         <>
-          You are about to permanently delete the scoring rule with score range{' '}
+          أنت على وشك حذف قاعدة التقييم ذات نطاق الدرجات{' '}
           <strong>
             {rule.minScore}–{rule.maxScore}
-          </strong>
-          . This action cannot be undone.
+          </strong>{' '}
+          بشكل نهائي. لا يمكن التراجع عن هذا الإجراء.
         </>
       }
-      confirmText={mutation.isPending ? 'Deleting…' : 'Delete'}
+      confirmText={mutation.isPending ? 'جارٍ الحذف…' : 'حذف'}
     />
   )
 }

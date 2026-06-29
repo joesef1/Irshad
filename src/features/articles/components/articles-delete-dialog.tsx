@@ -22,7 +22,7 @@ export function ArticlesDeleteDialog({
   const mutation = useMutation({
     mutationFn: () => deleteArticle(article.id),
     onSuccess: () => {
-      toast.success('Article deleted.')
+      toast.success('تم حذف المقالة.')
       queryClient.invalidateQueries({ queryKey: articlesQueryKey })
       onOpenChange(false)
       onDeleted()
@@ -37,14 +37,14 @@ export function ArticlesDeleteDialog({
       onOpenChange={onOpenChange}
       handleConfirm={() => mutation.mutate()}
       className='max-w-md'
-      title={`Delete "${article.title}"?`}
+      title={`حذف "${article.title}"؟`}
       desc={
         <>
-          You are about to permanently delete <strong>{article.title}</strong>.
-          This action cannot be undone.
+          أنت على وشك حذف <strong>{article.title}</strong> بشكل نهائي. لا يمكن
+          التراجع عن هذا الإجراء.
         </>
       }
-      confirmText={mutation.isPending ? 'Deleting…' : 'Delete'}
+      confirmText={mutation.isPending ? 'جارٍ الحذف…' : 'حذف'}
     />
   )
 }

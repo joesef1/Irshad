@@ -44,7 +44,7 @@ export function ArticlesTable({ data }: Props) {
 
   return (
     <div className='flex flex-1 flex-col gap-4'>
-      <DataTableToolbar table={table} searchPlaceholder='Filter articles…' />
+      <DataTableToolbar table={table} searchPlaceholder='تصفية المقالات…' />
       <div className='overflow-hidden rounded-md border'>
         <Table>
           <TableHeader>
@@ -95,7 +95,7 @@ export function ArticlesTable({ data }: Props) {
                   colSpan={columns.length}
                   className='h-24 text-center'
                 >
-                  No articles found.
+                  لا توجد مقالات.
                 </TableCell>
               </TableRow>
             )}

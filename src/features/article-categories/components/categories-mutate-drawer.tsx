@@ -30,7 +30,7 @@ import {
 import { type Category } from '../data/schema'
 
 const formSchema = z.object({
-  name: z.string().min(1, 'Category name is required.'),
+  name: z.string().min(1, 'اسم التصنيف مطلوب.'),
 })
 type CategoryForm = z.infer<typeof formSchema>
 
@@ -59,7 +59,7 @@ export function CategoriesMutateDrawer({
         ? updateCategory(currentRow!.id, data.name)
         : addCategory(data.name),
     onSuccess: () => {
-      toast.success(isUpdate ? 'Category updated.' : 'Category created.')
+      toast.success(isUpdate ? 'تم تحديث التصنيف.' : 'تم إنشاء التصنيف.')
       queryClient.invalidateQueries({ queryKey: categoriesQueryKey })
       onOpenChange(false)
       form.reset()
@@ -79,12 +79,12 @@ export function CategoriesMutateDrawer({
     >
       <SheetContent className='flex flex-col'>
         <SheetHeader className='text-start'>
-          <SheetTitle>{isUpdate ? 'Edit' : 'Create'} Category</SheetTitle>
+          <SheetTitle>{isUpdate ? 'تعديل' : 'إنشاء'} تصنيف</SheetTitle>
           <SheetDescription>
             {isUpdate
-              ? 'Update the category name below.'
-              : 'Add a new article category.'}{' '}
-            Click save when you&apos;re done.
+              ? 'قم بتحديث اسم التصنيف أدناه.'
+              : 'أضف تصنيفاً جديداً للمقالات.'}{' '}
+            انقر على حفظ عند الانتهاء.
           </SheetDescription>
         </SheetHeader>
 
@@ -99,9 +99,9 @@ export function CategoriesMutateDrawer({
               name='name'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>الاسم</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder='e.g. Mental Health' />
+                    <Input {...field} placeholder='مثال: الصحة النفسية' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -112,14 +112,14 @@ export function CategoriesMutateDrawer({
 
         <SheetFooter className='gap-2'>
           <SheetClose asChild>
-            <Button variant='outline'>Close</Button>
+            <Button variant='outline'>إغلاق</Button>
           </SheetClose>
           <Button
             form='category-form'
             type='submit'
             disabled={mutation.isPending}
           >
-            {mutation.isPending ? 'Saving…' : 'Save changes'}
+            {mutation.isPending ? 'جارٍ الحفظ…' : 'حفظ التغييرات'}
           </Button>
         </SheetFooter>
       </SheetContent>

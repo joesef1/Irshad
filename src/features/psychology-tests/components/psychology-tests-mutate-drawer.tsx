@@ -39,8 +39,8 @@ import {
 import { type PsychologyTest } from '../data/schema'
 
 const formSchema = z.object({
-  title: z.string().min(1, 'Title is required.'),
-  description: z.string().min(1, 'Description is required.'),
+  title: z.string().min(1, 'العنوان مطلوب.'),
+  description: z.string().min(1, 'الوصف مطلوب.'),
   isFree: z.enum(['true', 'false']),
   reportRequiresPurchase: z.enum(['true', 'false']),
   price: z.string().optional(),
@@ -106,7 +106,7 @@ export function PsychologyTestsMutateDrawer({
     },
     onSuccess: () => {
       toast.success(
-        isUpdate ? 'Psychology test updated.' : 'Psychology test created.'
+        isUpdate ? 'تم تحديث الاختبار النفسي.' : 'تم إنشاء الاختبار النفسي.'
       )
       queryClient.invalidateQueries({ queryKey: psychologyTestsQueryKey })
       onOpenChange(false)
@@ -139,14 +139,12 @@ export function PsychologyTestsMutateDrawer({
     >
       <SheetContent className='flex flex-col'>
         <SheetHeader className='text-start'>
-          <SheetTitle>
-            {isUpdate ? 'Edit' : 'Create'} Psychology Test
-          </SheetTitle>
+          <SheetTitle>{isUpdate ? 'تعديل' : 'إنشاء'} اختبار نفسي</SheetTitle>
           <SheetDescription>
             {isUpdate
-              ? 'Update the psychology test details below.'
-              : 'Add a new psychology test.'}{' '}
-            Click save when you&apos;re done.
+              ? 'قم بتحديث تفاصيل الاختبار النفسي أدناه.'
+              : 'أضف اختباراً نفسياً جديداً.'}{' '}
+            انقر على حفظ عند الانتهاء.
           </SheetDescription>
         </SheetHeader>
 
@@ -161,9 +159,9 @@ export function PsychologyTestsMutateDrawer({
               name='title'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Title</FormLabel>
+                  <FormLabel>العنوان</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder='e.g. Anxiety Assessment' />
+                    <Input {...field} placeholder='مثال: تقييم القلق' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -175,13 +173,9 @@ export function PsychologyTestsMutateDrawer({
               name='description'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>الوصف</FormLabel>
                   <FormControl>
-                    <Textarea
-                      {...field}
-                      rows={4}
-                      placeholder='Describe the test…'
-                    />
+                    <Textarea {...field} rows={4} placeholder='صف الاختبار…' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -193,16 +187,16 @@ export function PsychologyTestsMutateDrawer({
               name='isFree'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Is Free?</FormLabel>
+                  <FormLabel>مجاني؟</FormLabel>
                   <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder='Select…' />
+                        <SelectValue placeholder='اختر…' />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value='true'>Yes</SelectItem>
-                      <SelectItem value='false'>No</SelectItem>
+                      <SelectItem value='true'>نعم</SelectItem>
+                      <SelectItem value='false'>لا</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -215,16 +209,16 @@ export function PsychologyTestsMutateDrawer({
               name='reportRequiresPurchase'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Report Requires Purchase?</FormLabel>
+                  <FormLabel>التقرير يتطلب شراءً؟</FormLabel>
                   <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder='Select…' />
+                        <SelectValue placeholder='اختر…' />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value='true'>Yes</SelectItem>
-                      <SelectItem value='false'>No</SelectItem>
+                      <SelectItem value='true'>نعم</SelectItem>
+                      <SelectItem value='false'>لا</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -237,14 +231,14 @@ export function PsychologyTestsMutateDrawer({
               name='price'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Price (optional)</FormLabel>
+                  <FormLabel>السعر (اختياري)</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       type='number'
                       step='0.01'
                       min='0'
-                      placeholder='e.g. 9.99'
+                      placeholder='مثال: 9.99'
                     />
                   </FormControl>
                   <FormMessage />
@@ -253,7 +247,7 @@ export function PsychologyTestsMutateDrawer({
             />
 
             <FormItem>
-              <FormLabel>Image (optional)</FormLabel>
+              <FormLabel>الصورة (اختياري)</FormLabel>
               <FormControl>
                 <Input ref={fileRef} type='file' accept='image/*' />
               </FormControl>
@@ -263,14 +257,14 @@ export function PsychologyTestsMutateDrawer({
 
         <SheetFooter className='gap-2'>
           <SheetClose asChild>
-            <Button variant='outline'>Close</Button>
+            <Button variant='outline'>إغلاق</Button>
           </SheetClose>
           <Button
             form='psychology-test-form'
             type='submit'
             disabled={mutation.isPending}
           >
-            {mutation.isPending ? 'Saving…' : 'Save changes'}
+            {mutation.isPending ? 'جارٍ الحفظ…' : 'حفظ التغييرات'}
           </Button>
         </SheetFooter>
       </SheetContent>

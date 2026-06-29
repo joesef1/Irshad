@@ -42,16 +42,14 @@ import {
 import { type Article } from '../data/schema'
 
 const createSchema = z.object({
-  title: z.string().min(1, 'Title is required.'),
-  categoryId: z.string().min(1, 'Please select a category.'),
-  image: z
-    .instanceof(FileList)
-    .refine((f) => f.length > 0, 'Image is required.'),
+  title: z.string().min(1, 'العنوان مطلوب.'),
+  categoryId: z.string().min(1, 'يرجى اختيار تصنيف.'),
+  image: z.instanceof(FileList).refine((f) => f.length > 0, 'الصورة مطلوبة.'),
 })
 
 const updateSchema = z.object({
-  title: z.string().min(1, 'Title is required.'),
-  categoryId: z.string().min(1, 'Please select a category.'),
+  title: z.string().min(1, 'العنوان مطلوب.'),
+  categoryId: z.string().min(1, 'يرجى اختيار تصنيف.'),
   image: z.instanceof(FileList).optional(),
 })
 
@@ -104,7 +102,7 @@ export function ArticlesMutateDrawer({
       return isUpdate ? updateArticle(currentRow!.id, fd) : addArticle(fd)
     },
     onSuccess: () => {
-      toast.success(isUpdate ? 'Article updated.' : 'Article created.')
+      toast.success(isUpdate ? 'تم تحديث المقالة.' : 'تم إنشاء المقالة.')
       queryClient.invalidateQueries({ queryKey: articlesQueryKey })
       onOpenChange(false)
       form.reset()
@@ -130,12 +128,12 @@ export function ArticlesMutateDrawer({
     >
       <SheetContent className='flex flex-col'>
         <SheetHeader className='text-start'>
-          <SheetTitle>{isUpdate ? 'Edit' : 'Add'} Article</SheetTitle>
+          <SheetTitle>{isUpdate ? 'تعديل' : 'إضافة'} مقالة</SheetTitle>
           <SheetDescription>
             {isUpdate
-              ? 'Update the article details below.'
-              : 'Fill in the article details.'}{' '}
-            Click save when you&apos;re done.
+              ? 'قم بتحديث تفاصيل المقالة أدناه.'
+              : 'أدخل تفاصيل المقالة.'}{' '}
+            انقر على حفظ عند الانتهاء.
           </SheetDescription>
         </SheetHeader>
 
@@ -150,12 +148,9 @@ export function ArticlesMutateDrawer({
               name='title'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Title</FormLabel>
+                  <FormLabel>العنوان</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      placeholder='e.g. Understanding Anxiety'
-                    />
+                    <Input {...field} placeholder='مثال: فهم القلق' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -167,11 +162,11 @@ export function ArticlesMutateDrawer({
               name='categoryId'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Category</FormLabel>
+                  <FormLabel>التصنيف</FormLabel>
                   <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder='Select a category' />
+                        <SelectValue placeholder='اختر تصنيفاً' />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -189,10 +184,10 @@ export function ArticlesMutateDrawer({
 
             <FormItem>
               <FormLabel>
-                Image
+                الصورة
                 {isUpdate && (
                   <span className='ml-1 text-xs text-muted-foreground'>
-                    (optional)
+                    (اختياري)
                   </span>
                 )}
               </FormLabel>
@@ -223,14 +218,14 @@ export function ArticlesMutateDrawer({
 
         <SheetFooter className='gap-2'>
           <SheetClose asChild>
-            <Button variant='outline'>Close</Button>
+            <Button variant='outline'>إغلاق</Button>
           </SheetClose>
           <Button
             form='article-form'
             type='submit'
             disabled={mutation.isPending}
           >
-            {mutation.isPending ? 'Saving…' : 'Save changes'}
+            {mutation.isPending ? 'جارٍ الحفظ…' : 'حفظ التغييرات'}
           </Button>
         </SheetFooter>
       </SheetContent>

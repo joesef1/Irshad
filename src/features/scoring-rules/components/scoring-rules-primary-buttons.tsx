@@ -6,7 +6,7 @@ export function ScoringRulesPrimaryButtons() {
   const { setOpen } = useScoringRules()
   return (
     <Button className='space-x-1' onClick={() => setOpen('create')}>
-      <span>Add Rule</span> <Plus size={18} />
+      <span>إضافة قاعدة</span> <Plus size={18} />
     </Button>
   )
 }

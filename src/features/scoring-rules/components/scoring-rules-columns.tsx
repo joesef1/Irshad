@@ -24,7 +24,7 @@ function RowActions({ rule }: { rule: ScoringRule }) {
           className='flex h-8 w-8 p-0 data-[state=open]:bg-muted'
         >
           <DotsHorizontalIcon className='h-4 w-4' />
-          <span className='sr-only'>Open menu</span>
+          <span className='sr-only'>فتح القائمة</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-36'>
@@ -34,7 +34,7 @@ function RowActions({ rule }: { rule: ScoringRule }) {
             setOpen('update')
           }}
         >
-          Edit
+          تعديل
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
@@ -43,7 +43,7 @@ function RowActions({ rule }: { rule: ScoringRule }) {
             setOpen('delete')
           }}
         >
-          Delete
+          حذف
           <DropdownMenuShortcut>
             <Trash2 size={16} />
           </DropdownMenuShortcut>
@@ -64,21 +64,21 @@ export const scoringRulesColumns: ColumnDef<ScoringRule>[] = [
   {
     accessorKey: 'minScore',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Min Score' />
+      <DataTableColumnHeader column={column} title='أدنى درجة' />
     ),
     cell: ({ row }) => <span>{row.getValue('minScore')}</span>,
   },
   {
     accessorKey: 'maxScore',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Max Score' />
+      <DataTableColumnHeader column={column} title='أعلى درجة' />
     ),
     cell: ({ row }) => <span>{row.getValue('maxScore')}</span>,
   },
   {
     accessorKey: 'reportDetails',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Report Details' />
+      <DataTableColumnHeader column={column} title='تفاصيل التقرير' />
     ),
     cell: ({ row }) => {
       const details = row.getValue<string>('reportDetails')

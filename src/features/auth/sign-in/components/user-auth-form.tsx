@@ -24,12 +24,13 @@ import { PasswordInput } from '@/components/password-input'
 
 const formSchema = z.object({
   email: z.email({
-    error: (iss) => (iss.input === '' ? 'Please enter your email.' : undefined),
+    error: (iss) =>
+      iss.input === '' ? 'يرجى إدخال بريدك الإلكتروني.' : undefined,
   }),
   password: z
     .string()
-    .min(1, 'Please enter your password.')
-    .min(7, 'Password must be at least 7 characters long.'),
+    .min(1, 'يرجى إدخال كلمة المرور.')
+    .min(7, 'يجب أن تتكون كلمة المرور من 7 أحرف على الأقل.'),
 })
 
 interface LoginResponse {
@@ -76,7 +77,7 @@ export function UserAuthForm({
       const { succeeded, data: payload, message } = response.data
 
       if (!succeeded || !payload) {
-        toast.error(message ?? 'Invalid credentials')
+        toast.error(message ?? 'بيانات الاعتماد غير صحيحة')
         return
       }
 
@@ -91,17 +92,17 @@ export function UserAuthForm({
         exp: Date.now() + 24 * 60 * 60 * 1000, // 24 hrs — replace with decoded JWT exp if needed
       })
 
-      toast.success(`Welcome back, ${payload.userName}!`)
+      toast.success(`مرحباً بعودتك، ${payload.userName}!`)
       navigate({ to: redirectTo ?? '/', replace: true })
     } catch (err) {
       if (err instanceof AxiosError) {
         const msg =
           err.response?.data?.message ??
           err.response?.data?.title ??
-          'Sign in failed. Please try again.'
+          'فشل تسجيل الدخول. يرجى المحاولة مرة أخرى.'
         toast.error(msg)
       } else {
-        toast.error('An unexpected error occurred.')
+        toast.error('حدث خطأ غير متوقع.')
       }
     } finally {
       setIsLoading(false)
@@ -120,7 +121,7 @@ export function UserAuthForm({
           name='email'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>البريد الإلكتروني</FormLabel>
               <FormControl>
                 <Input placeholder='name@example.com' {...field} />
               </FormControl>
@@ -133,7 +134,7 @@ export function UserAuthForm({
           name='password'
           render={({ field }) => (
             <FormItem className='relative'>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>كلمة المرور</FormLabel>
               <FormControl>
                 <PasswordInput placeholder='********' {...field} />
               </FormControl>
@@ -142,14 +143,14 @@ export function UserAuthForm({
                 to='/forgot-password'
                 className='absolute inset-e-0 -top-0.5 text-sm font-medium text-muted-foreground hover:opacity-75'
               >
-                Forgot password?
+                نسيت كلمة المرور؟
               </Link>
             </FormItem>
           )}
         />
         <Button className='mt-2' disabled={isLoading}>
           {isLoading ? <Loader2 className='animate-spin' /> : <LogIn />}
-          Sign in
+          تسجيل الدخول
         </Button>
 
         <div className='relative my-2'>
@@ -158,7 +159,7 @@ export function UserAuthForm({
           </div>
           <div className='relative flex justify-center text-xs uppercase'>
             {/* <span className='bg-background px-2 text-muted-foreground'>
-              Or continue with
+              أو تابع باستخدام
             </span> */}
           </div>
         </div>

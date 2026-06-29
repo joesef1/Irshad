@@ -1,6 +1,3 @@
-/**
- * Read-only card showing a single static list (Gender, Marital Status, etc.)
- */
 import { useQuery } from '@tanstack/react-query'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -30,9 +27,7 @@ export function LookupStaticList({ title, queryKey, fetchFn }: Props) {
           </div>
         )}
         {isError && (
-          <p className='text-sm text-destructive'>
-            Failed to load {title.toLowerCase()}.
-          </p>
+          <p className='text-sm text-destructive'>فشل تحميل {title}.</p>
         )}
         {data && (
           <div className='flex flex-wrap gap-2'>
@@ -47,7 +42,7 @@ export function LookupStaticList({ title, queryKey, fetchFn }: Props) {
               </Badge>
             ))}
             {data.length === 0 && (
-              <p className='text-sm text-muted-foreground'>No data.</p>
+              <p className='text-sm text-muted-foreground'>لا توجد بيانات.</p>
             )}
           </div>
         )}

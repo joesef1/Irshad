@@ -25,7 +25,7 @@ function RowActions({ question }: { question: TestQuestion }) {
           className='flex h-8 w-8 p-0 data-[state=open]:bg-muted'
         >
           <DotsHorizontalIcon className='h-4 w-4' />
-          <span className='sr-only'>Open menu</span>
+          <span className='sr-only'>فتح القائمة</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-36'>
@@ -35,7 +35,7 @@ function RowActions({ question }: { question: TestQuestion }) {
             setOpen('update')
           }}
         >
-          Edit
+          تعديل
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
@@ -44,7 +44,7 @@ function RowActions({ question }: { question: TestQuestion }) {
             setOpen('delete')
           }}
         >
-          Delete
+          حذف
           <DropdownMenuShortcut>
             <Trash2 size={16} />
           </DropdownMenuShortcut>
@@ -65,7 +65,7 @@ export const testQuestionsColumns: ColumnDef<TestQuestion>[] = [
   {
     accessorKey: 'questionText',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Question' />
+      <DataTableColumnHeader column={column} title='نص السؤال' />
     ),
     cell: ({ row }) => (
       <span className='font-medium'>{row.getValue('questionText')}</span>
@@ -74,7 +74,7 @@ export const testQuestionsColumns: ColumnDef<TestQuestion>[] = [
   {
     accessorKey: 'testSectionTitle',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Section' />
+      <DataTableColumnHeader column={column} title='القسم' />
     ),
     cell: ({ row }) => (
       <span className='text-muted-foreground'>
@@ -85,7 +85,7 @@ export const testQuestionsColumns: ColumnDef<TestQuestion>[] = [
   {
     id: 'optionsCount',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Options' />
+      <DataTableColumnHeader column={column} title='الخيارات' />
     ),
     cell: ({ row }) => {
       const count = row.original.options?.length ?? 0

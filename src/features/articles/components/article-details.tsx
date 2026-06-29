@@ -38,8 +38,8 @@ import {
 } from '../api/articles-api'
 
 const sectionSchema = z.object({
-  title: z.string().min(1, 'Section title is required.'),
-  content: z.string().min(1, 'Content is required.'),
+  title: z.string().min(1, 'عنوان القسم مطلوب.'),
+  content: z.string().min(1, 'المحتوى مطلوب.'),
 })
 type SectionForm = z.infer<typeof sectionSchema>
 
@@ -70,7 +70,7 @@ export function ArticleDetails({ articleId }: Props) {
     mutationFn: (data: SectionForm) =>
       addSection(articleId, data.title, data.content),
     onSuccess: () => {
-      toast.success('Section added.')
+      toast.success('تمت إضافة القسم.')
       queryClient.invalidateQueries({
         queryKey: articleDetailsQueryKey(articleId),
       })
@@ -83,7 +83,7 @@ export function ArticleDetails({ articleId }: Props) {
   const deleteSectionsMutation = useMutation({
     mutationFn: () => deleteArticleSections(articleId),
     onSuccess: () => {
-      toast.success('All sections deleted.')
+      toast.success('تم حذف جميع الأقسام.')
       queryClient.invalidateQueries({
         queryKey: articleDetailsQueryKey(articleId),
       })
@@ -105,25 +105,25 @@ export function ArticleDetails({ articleId }: Props) {
   if (isError || !article) {
     return (
       <div className='rounded-md border border-red-200 bg-red-50 p-4 text-sm text-destructive dark:bg-red-950/20'>
-        Failed to load article:{' '}
-        {error instanceof Error ? error.message : 'Unknown error'}
+        فشل تحميل المقالة:{' '}
+        {error instanceof Error ? error.message : 'خطأ غير معروف'}
       </div>
     )
   }
 
   return (
     <div className='flex flex-col gap-6'>
-      {/* Back */}
+      {/* رجوع */}
       <Button
         variant='ghost'
         size='sm'
         className='w-fit gap-1.5'
         onClick={() => navigate({ to: '/Articles' })}
       >
-        <ArrowLeft className='size-4' /> Back to Articles
+        <ArrowLeft className='size-4' /> العودة إلى المقالات
       </Button>
 
-      {/* Article header card */}
+      {/* بطاقة المقالة */}
       <Card>
         <CardContent className='flex flex-wrap gap-4 pt-6'>
           {article.imageUrl && (
@@ -144,18 +144,17 @@ export function ArticleDetails({ articleId }: Props) {
         </CardContent>
       </Card>
 
-      {/* Sections list */}
+      {/* قائمة الأقسام */}
       <Card>
         <CardHeader className='flex flex-row items-center justify-between'>
-          <CardTitle className='text-base'>Sections</CardTitle>
-          {/* Both action buttons aligned in a row */}
+          <CardTitle className='text-base'>الأقسام</CardTitle>
           <div className='flex gap-2'>
             <Button
               size='sm'
               className='gap-1.5'
               onClick={() => setDrawerOpen(true)}
             >
-              <Plus className='size-4' /> Add Section
+              <Plus className='size-4' /> إضافة قسم
             </Button>
             {article.sections && article.sections.length > 0 && (
               <Button
@@ -164,14 +163,14 @@ export function ArticleDetails({ articleId }: Props) {
                 className='gap-1.5'
                 onClick={() => setDeleteOpen(true)}
               >
-                <Trash2 className='size-4' /> Delete All Sections
+                <Trash2 className='size-4' /> حذف جميع الأقسام
               </Button>
             )}
           </div>
         </CardHeader>
         <CardContent className='flex flex-col gap-4'>
           {!article.sections?.length ? (
-            <p className='text-sm text-muted-foreground'>No sections yet.</p>
+            <p className='text-sm text-muted-foreground'>لا توجد أقسام بعد.</p>
           ) : (
             article.sections.map((section, i) => (
               <div key={section.id} className='flex flex-col gap-1'>
@@ -186,7 +185,7 @@ export function ArticleDetails({ articleId }: Props) {
         </CardContent>
       </Card>
 
-      {/* Add Section Drawer */}
+      {/* درج إضافة قسم */}
       <Sheet
         open={drawerOpen}
         onOpenChange={(v) => {
@@ -196,10 +195,9 @@ export function ArticleDetails({ articleId }: Props) {
       >
         <SheetContent className='flex flex-col'>
           <SheetHeader className='text-start'>
-            <SheetTitle>Add Section</SheetTitle>
+            <SheetTitle>إضافة قسم</SheetTitle>
             <SheetDescription>
-              Add a new section to this article. Click save when you&apos;re
-              done.
+              أضف قسماً جديداً لهذه المقالة. انقر على حفظ عند الانتهاء.
             </SheetDescription>
           </SheetHeader>
 
@@ -214,9 +212,9 @@ export function ArticleDetails({ articleId }: Props) {
                 name='title'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Section Title</FormLabel>
+                    <FormLabel>عنوان القسم</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder='e.g. Introduction' />
+                      <Input {...field} placeholder='مثال: المقدمة' />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -227,12 +225,12 @@ export function ArticleDetails({ articleId }: Props) {
                 name='content'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Content</FormLabel>
+                    <FormLabel>المحتوى</FormLabel>
                     <FormControl>
                       <Textarea
                         {...field}
                         rows={8}
-                        placeholder='Write the section content…'
+                        placeholder='اكتب محتوى القسم هنا…'
                       />
                     </FormControl>
                     <FormMessage />
@@ -244,35 +242,35 @@ export function ArticleDetails({ articleId }: Props) {
 
           <SheetFooter className='gap-2'>
             <SheetClose asChild>
-              <Button variant='outline'>Close</Button>
+              <Button variant='outline'>إغلاق</Button>
             </SheetClose>
             <Button
               form='section-form'
               type='submit'
               disabled={addSectionMutation.isPending}
             >
-              {addSectionMutation.isPending ? 'Saving…' : 'Save changes'}
+              {addSectionMutation.isPending ? 'جارٍ الحفظ…' : 'حفظ التغييرات'}
             </Button>
           </SheetFooter>
         </SheetContent>
       </Sheet>
 
-      {/* Delete all sections confirm */}
+      {/* تأكيد حذف جميع الأقسام */}
       <ConfirmDialog
         destructive
         open={deleteOpen}
         onOpenChange={setDeleteOpen}
         handleConfirm={() => deleteSectionsMutation.mutate()}
         className='max-w-md'
-        title='Delete all sections?'
+        title='حذف جميع الأقسام؟'
         desc={
           <>
-            This will permanently remove all sections from{' '}
-            <strong>{article.title}</strong>. This action cannot be undone.
+            سيتم حذف جميع أقسام <strong>{article.title}</strong> بشكل نهائي. لا
+            يمكن التراجع عن هذا الإجراء.
           </>
         }
         confirmText={
-          deleteSectionsMutation.isPending ? 'Deleting…' : 'Delete All'
+          deleteSectionsMutation.isPending ? 'جارٍ الحذف…' : 'حذف الكل'
         }
       />
     </div>

@@ -34,10 +34,10 @@ export function PsychologyTests() {
         <div className='flex flex-wrap items-end justify-between gap-2'>
           <div>
             <h2 className='text-2xl font-bold tracking-tight'>
-              Psychology Tests
+              الاختبارات النفسية
             </h2>
             <p className='text-muted-foreground'>
-              Manage your psychology tests here.
+              إدارة الاختبارات النفسية من هنا.
             </p>
           </div>
           <PsychologyTestsPrimaryButtons />
@@ -53,8 +53,8 @@ export function PsychologyTests() {
 
         {isError && (
           <div className='rounded-md border border-red-200 bg-red-50 p-4 text-sm text-destructive dark:bg-red-950/20'>
-            Failed to load psychology tests:{' '}
-            {error instanceof Error ? error.message : 'Unknown error'}
+            فشل تحميل الاختبارات النفسية:{' '}
+            {error instanceof Error ? error.message : 'خطأ غير معروف'}
           </div>
         )}
 

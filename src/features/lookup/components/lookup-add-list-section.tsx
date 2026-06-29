@@ -1,9 +1,3 @@
-/**
- * Generic section used by Nationality, Specialization, and Contact Time tabs.
- * Shows:
- *   Top half  — inline add form (name input + submit button)
- *   Bottom half — table of existing items
- */
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
@@ -33,7 +27,7 @@ import {
 import { type LookupItem } from '../api/lookup-api'
 
 const formSchema = z.object({
-  name: z.string().min(1, 'Name is required.'),
+  name: z.string().min(1, 'الاسم مطلوب.'),
 })
 type FormValues = z.infer<typeof formSchema>
 
@@ -44,7 +38,6 @@ type Props = {
   fetchFn: () => Promise<LookupItem[]>
   addFn: (name: string) => Promise<void>
   placeholder?: string
-  /** Key used to read the display name from each item. Defaults to "name". */
   nameKey?: string
 }
 
@@ -59,10 +52,7 @@ export function LookupAddListSection({
 }: Props) {
   const queryClient = useQueryClient()
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey,
-    queryFn: fetchFn,
-  })
+  const { data, isLoading, isError } = useQuery({ queryKey, queryFn: fetchFn })
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -72,7 +62,7 @@ export function LookupAddListSection({
   const mutation = useMutation({
     mutationFn: (values: FormValues) => addFn(values.name),
     onSuccess: () => {
-      toast.success(`${addLabel} added.`)
+      toast.success(`تمت إضافة ${addLabel}.`)
       queryClient.invalidateQueries({ queryKey })
       form.reset()
     },
@@ -81,11 +71,10 @@ export function LookupAddListSection({
 
   return (
     <div className='flex flex-col gap-4'>
-      {/* Add form */}
       <Card>
         <CardHeader>
           <CardTitle className='flex items-center gap-2 text-base'>
-            <Plus className='size-4' /> Add {addLabel}
+            <Plus className='size-4' /> إضافة {addLabel}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -99,13 +88,11 @@ export function LookupAddListSection({
                 name='name'
                 render={({ field }) => (
                   <FormItem className='flex-1'>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>الاسم</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
-                        placeholder={
-                          placeholder ?? `Enter ${addLabel.toLowerCase()} name`
-                        }
+                        placeholder={placeholder ?? `أدخل اسم ${addLabel}`}
                       />
                     </FormControl>
                     <FormMessage />
@@ -117,17 +104,16 @@ export function LookupAddListSection({
                 disabled={mutation.isPending}
                 className='mb-0.5'
               >
-                {mutation.isPending ? 'Saving…' : 'Add'}
+                {mutation.isPending ? 'جارٍ الحفظ…' : 'إضافة'}
               </Button>
             </form>
           </Form>
         </CardContent>
       </Card>
 
-      {/* List */}
       <Card>
         <CardHeader>
-          <CardTitle className='text-base'>{title} List</CardTitle>
+          <CardTitle className='text-base'>قائمة {title}</CardTitle>
         </CardHeader>
         <CardContent>
           {isLoading && (
@@ -137,20 +123,16 @@ export function LookupAddListSection({
               ))}
             </div>
           )}
-
           {isError && (
-            <p className='text-sm text-destructive'>
-              Failed to load {title.toLowerCase()}.
-            </p>
+            <p className='text-sm text-destructive'>فشل تحميل {title}.</p>
           )}
-
           {data && (
             <div className='overflow-hidden rounded-md border'>
               <Table>
                 <TableHeader>
                   <TableRow>
                     <TableHead className='w-16'>#</TableHead>
-                    <TableHead>Name</TableHead>
+                    <TableHead>الاسم</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -160,7 +142,7 @@ export function LookupAddListSection({
                         colSpan={2}
                         className='h-16 text-center text-muted-foreground'
                       >
-                        No {title.toLowerCase()} found.
+                        لا توجد {title}.
                       </TableCell>
                     </TableRow>
                   ) : (

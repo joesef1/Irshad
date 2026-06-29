@@ -25,7 +25,7 @@ function RowActions({ article }: { article: Article }) {
           className='flex h-8 w-8 p-0 data-[state=open]:bg-muted'
         >
           <DotsHorizontalIcon className='h-4 w-4' />
-          <span className='sr-only'>Open menu</span>
+          <span className='sr-only'>فتح القائمة</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-40'>
@@ -34,7 +34,7 @@ function RowActions({ article }: { article: Article }) {
             to='/Articles/$articleId'
             params={{ articleId: String(article.id) }}
           >
-            <Eye className='mr-2 size-4' /> View
+            <Eye className='mr-2 size-4' /> عرض
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem
@@ -43,7 +43,7 @@ function RowActions({ article }: { article: Article }) {
             setOpen('update')
           }}
         >
-          Edit
+          تعديل
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
@@ -52,7 +52,7 @@ function RowActions({ article }: { article: Article }) {
             setOpen('delete')
           }}
         >
-          Delete
+          حذف
           <DropdownMenuShortcut>
             <Trash2 size={16} />
           </DropdownMenuShortcut>
@@ -73,7 +73,7 @@ export const articlesColumns: ColumnDef<Article>[] = [
   {
     accessorKey: 'title',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Title' />
+      <DataTableColumnHeader column={column} title='العنوان' />
     ),
     cell: ({ row }) => (
       <span className='font-medium'>{row.getValue('title')}</span>
@@ -82,7 +82,7 @@ export const articlesColumns: ColumnDef<Article>[] = [
   {
     accessorKey: 'categoryName',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Category' />
+      <DataTableColumnHeader column={column} title='التصنيف' />
     ),
     cell: ({ row }) => (
       <span className='text-muted-foreground'>
@@ -93,16 +93,12 @@ export const articlesColumns: ColumnDef<Article>[] = [
   },
   {
     accessorKey: 'imageUrl',
-    header: () => <span>Image</span>,
+    header: () => <span>الصورة</span>,
     cell: ({ row }) => {
       const url = row.getValue<string | null>('imageUrl')
       if (!url) return <span className='text-muted-foreground'>—</span>
       return (
-        <img
-          src={url}
-          alt='article'
-          className='h-10 w-16 rounded object-cover'
-        />
+        <img src={url} alt='مقالة' className='h-10 w-16 rounded object-cover' />
       )
     },
     enableSorting: false,

@@ -6,7 +6,7 @@ export function CategoriesPrimaryButtons() {
   const { setOpen } = useCategories()
   return (
     <Button className='space-x-1' onClick={() => setOpen('create')}>
-      <span>Add Category</span> <Plus size={18} />
+      <span>إضافة تصنيف</span> <Plus size={18} />
     </Button>
   )
 }

@@ -27,7 +27,7 @@ export function TestQuestionsDeleteDialog({
   const mutation = useMutation({
     mutationFn: () => deleteTestQuestion(question.id),
     onSuccess: () => {
-      toast.success('Question deleted.')
+      toast.success('تم حذف السؤال.')
       queryClient.invalidateQueries({ queryKey: testQuestionsQueryKey(testId) })
       onOpenChange(false)
       onDeleted()
@@ -42,15 +42,15 @@ export function TestQuestionsDeleteDialog({
       onOpenChange={onOpenChange}
       handleConfirm={() => mutation.mutate()}
       className='max-w-md'
-      title={`Delete this question?`}
+      title='حذف هذا السؤال؟'
       desc={
         <>
-          You are about to permanently delete the question:{' '}
-          <strong>&quot;{question.questionText}&quot;</strong>. This action
-          cannot be undone.
+          أنت على وشك حذف السؤال:{' '}
+          <strong>&quot;{question.questionText}&quot;</strong> بشكل نهائي. لا
+          يمكن التراجع عن هذا الإجراء.
         </>
       }
-      confirmText={mutation.isPending ? 'Deleting…' : 'Delete'}
+      confirmText={mutation.isPending ? 'جارٍ الحذف…' : 'حذف'}
     />
   )
 }

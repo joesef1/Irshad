@@ -12,7 +12,7 @@ export const consultantsColumns: ColumnDef<Consultant>[] = [
   {
     id: 'consultant',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Consultant' />
+      <DataTableColumnHeader column={column} title='المستشار' />
     ),
     cell: ({ row }) => {
       const { fullName, userName } = row.original
@@ -40,7 +40,7 @@ export const consultantsColumns: ColumnDef<Consultant>[] = [
   {
     accessorKey: 'email',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Email' />
+      <DataTableColumnHeader column={column} title='البريد الإلكتروني' />
     ),
     cell: ({ row }) => (
       <div className='ps-2 text-nowrap'>{row.getValue('email')}</div>
@@ -49,7 +49,7 @@ export const consultantsColumns: ColumnDef<Consultant>[] = [
   {
     accessorKey: 'phoneNumber',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Phone' />
+      <DataTableColumnHeader column={column} title='الهاتف' />
     ),
     cell: ({ row }) => <div>{row.getValue('phoneNumber') ?? '—'}</div>,
     enableSorting: false,
@@ -57,7 +57,7 @@ export const consultantsColumns: ColumnDef<Consultant>[] = [
   {
     accessorKey: 'nationality',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Nationality' />
+      <DataTableColumnHeader column={column} title='الجنسية' />
     ),
     cell: ({ row }) => <div>{row.getValue('nationality') ?? '—'}</div>,
     enableSorting: false,
@@ -65,7 +65,7 @@ export const consultantsColumns: ColumnDef<Consultant>[] = [
   {
     accessorKey: 'qualification',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Qualification' />
+      <DataTableColumnHeader column={column} title='المؤهل' />
     ),
     cell: ({ row }) => (
       <LongText className='max-w-48'>
@@ -77,17 +77,17 @@ export const consultantsColumns: ColumnDef<Consultant>[] = [
   {
     accessorKey: 'experienceYears',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Experience' />
+      <DataTableColumnHeader column={column} title='الخبرة' />
     ),
     cell: ({ row }) => {
       const years = row.getValue<string | null>('experienceYears')
-      return <div>{years ? `${years} yrs` : '—'}</div>
+      return <div>{years ? `${years} سنوات` : '—'}</div>
     },
   },
   {
     accessorKey: 'specialization',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Specializations' />
+      <DataTableColumnHeader column={column} title='التخصصات' />
     ),
     cell: ({ row }) => {
       const specs = row.getValue<string[] | null>('specialization')
@@ -112,7 +112,7 @@ export const consultantsColumns: ColumnDef<Consultant>[] = [
   {
     accessorKey: 'gender',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Gender' />
+      <DataTableColumnHeader column={column} title='الجنس' />
     ),
     cell: ({ row }) => (
       <div className='capitalize'>{row.getValue('gender') ?? '—'}</div>
@@ -121,13 +121,13 @@ export const consultantsColumns: ColumnDef<Consultant>[] = [
   },
   {
     id: 'actions',
-    header: () => <span className='sr-only'>Actions</span>,
+    header: () => <span className='sr-only'>الإجراءات</span>,
     cell: ({ row }) => (
       <Button variant='ghost' size='icon' asChild>
         <Link
           to='/Consultant/$consultantId'
           params={{ consultantId: row.original.id }}
-          aria-label='View consultant details'
+          aria-label='عرض تفاصيل المستشار'
         >
           <Eye className='size-4' />
         </Link>

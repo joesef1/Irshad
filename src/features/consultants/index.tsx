@@ -26,9 +26,9 @@ export function Consultants() {
 
       <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
         <div>
-          <h2 className='text-2xl font-bold tracking-tight'>Consultants</h2>
+          <h2 className='text-2xl font-bold tracking-tight'>المستشارون</h2>
           <p className='text-muted-foreground'>
-            View and manage all registered consultants.
+            عرض وإدارة جميع المستشارين المسجلين.
           </p>
         </div>
 
@@ -42,8 +42,8 @@ export function Consultants() {
 
         {isError && (
           <div className='rounded-md border border-red-200 bg-red-50 p-4 text-sm text-destructive dark:bg-red-950/20'>
-            Failed to load consultants:{' '}
-            {error instanceof Error ? error.message : 'Unknown error'}
+            فشل تحميل المستشارين:{' '}
+            {error instanceof Error ? error.message : 'خطأ غير معروف'}
           </div>
         )}
 

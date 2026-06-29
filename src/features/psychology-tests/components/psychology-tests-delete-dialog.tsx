@@ -25,7 +25,7 @@ export function PsychologyTestsDeleteDialog({
   const mutation = useMutation({
     mutationFn: () => deletePsychologyTest(test.id),
     onSuccess: () => {
-      toast.success('Psychology test deleted.')
+      toast.success('تم حذف الاختبار النفسي.')
       queryClient.invalidateQueries({ queryKey: psychologyTestsQueryKey })
       onOpenChange(false)
       onDeleted()
@@ -40,14 +40,14 @@ export function PsychologyTestsDeleteDialog({
       onOpenChange={onOpenChange}
       handleConfirm={() => mutation.mutate()}
       className='max-w-md'
-      title={`Delete "${test.title}"?`}
+      title={`حذف "${test.title}"؟`}
       desc={
         <>
-          You are about to permanently delete the psychology test{' '}
-          <strong>{test.title}</strong>. This action cannot be undone.
+          أنت على وشك حذف الاختبار النفسي <strong>{test.title}</strong> بشكل
+          نهائي. لا يمكن التراجع عن هذا الإجراء.
         </>
       }
-      confirmText={mutation.isPending ? 'Deleting…' : 'Delete'}
+      confirmText={mutation.isPending ? 'جارٍ الحذف…' : 'حذف'}
     />
   )
 }

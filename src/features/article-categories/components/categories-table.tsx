@@ -44,7 +44,7 @@ export function CategoriesTable({ data }: Props) {
 
   return (
     <div className={cn('flex flex-1 flex-col gap-4')}>
-      <DataTableToolbar table={table} searchPlaceholder='Filter categories…' />
+      <DataTableToolbar table={table} searchPlaceholder='تصفية التصنيفات…' />
       <div className='overflow-hidden rounded-md border'>
         <Table>
           <TableHeader>
@@ -95,7 +95,7 @@ export function CategoriesTable({ data }: Props) {
                   colSpan={columns.length}
                   className='h-24 text-center'
                 >
-                  No categories found.
+                  لا توجد تصنيفات.
                 </TableCell>
               </TableRow>
             )}

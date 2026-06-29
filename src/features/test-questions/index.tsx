@@ -46,14 +46,14 @@ export function TestQuestions({ testId, testName }: Props) {
               className='w-fit gap-1.5'
               onClick={() => navigate({ to: '/PsychologyTest' })}
             >
-              <ArrowLeft className='size-4' /> Back to Psychology Tests
+              <ArrowLeft className='size-4' /> العودة إلى الاختبارات النفسية
             </Button>
             <div>
               <h2 className='text-2xl font-bold tracking-tight'>
-                Questions{testName ? ` — ${testName}` : ''}
+                الأسئلة{testName ? ` — ${testName}` : ''}
               </h2>
               <p className='text-muted-foreground'>
-                Manage questions and answer options for this psychology test.
+                إدارة أسئلة وخيارات الإجابة لهذا الاختبار النفسي.
               </p>
             </div>
           </div>
@@ -70,8 +70,8 @@ export function TestQuestions({ testId, testName }: Props) {
 
         {isError && (
           <div className='rounded-md border border-red-200 bg-red-50 p-4 text-sm text-destructive dark:bg-red-950/20'>
-            Failed to load questions:{' '}
-            {error instanceof Error ? error.message : 'Unknown error'}
+            فشل تحميل الأسئلة:{' '}
+            {error instanceof Error ? error.message : 'خطأ غير معروف'}
           </div>
         )}
 

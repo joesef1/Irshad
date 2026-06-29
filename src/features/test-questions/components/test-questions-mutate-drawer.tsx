@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { useFieldArray, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { standardSchemaResolver as zodResolver } from '@hookform/resolvers/standard-schema'
 import { Plus, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
@@ -33,21 +33,24 @@ import { type TestQuestion } from '../data/schema'
 
 const optionSchema = z.object({
   id: z.number().optional(),
-  optionText: z.string().min(1, 'Option text is required.'),
+  optionText: z.string().min(1, 'نص الخيار مطلوب.'),
   scoreValue: z
     .string()
-    .min(1, 'Score is required.')
-    .refine((v) => !isNaN(Number(v)), 'Must be a number.'),
+    .min(1, 'الدرجة مطلوبة.')
+    .refine((v) => !isNaN(Number(v)), 'يجب أن يكون رقماً.'),
   testQuestionId: z.number().optional(),
 })
 
 const formSchema = z.object({
-  questionText: z.string().min(1, 'Question text is required.'),
+  questionText: z.string().min(1, 'نص السؤال مطلوب.'),
   testSectionId: z
     .string()
-    .min(1, 'Section ID is required.')
-    .refine((v) => !isNaN(Number(v)) && Number(v) > 0, 'Must be a valid ID.'),
-  options: z.array(optionSchema).min(1, 'At least one option is required.'),
+    .min(1, 'معرّف القسم مطلوب.')
+    .refine(
+      (v) => !isNaN(Number(v)) && Number(v) > 0,
+      'يجب أن يكون معرّفاً صالحاً.'
+    ),
+  options: z.array(optionSchema).min(1, 'أضف خياراً واحداً على الأقل.'),
 })
 
 type QuestionForm = z.infer<typeof formSchema>
@@ -118,15 +121,13 @@ export function TestQuestionsMutateDrawer({
       })
     },
     onSuccess: () => {
-      toast.success(isUpdate ? 'Question updated.' : 'Question created.')
+      toast.success(isUpdate ? 'تم تحديث السؤال.' : 'تم إنشاء السؤال.')
       queryClient.invalidateQueries({ queryKey: testQuestionsQueryKey(testId) })
       onOpenChange(false)
       form.reset(buildDefaults())
     },
     onError: (err: Error) => toast.error(err.message),
   })
-
-  const onSubmit = (data: QuestionForm) => mutation.mutate(data)
 
   return (
     <Sheet
@@ -138,19 +139,19 @@ export function TestQuestionsMutateDrawer({
     >
       <SheetContent className='flex flex-col sm:max-w-lg'>
         <SheetHeader className='text-start'>
-          <SheetTitle>{isUpdate ? 'Edit' : 'Create'} Question</SheetTitle>
+          <SheetTitle>{isUpdate ? 'تعديل' : 'إنشاء'} سؤال</SheetTitle>
           <SheetDescription>
             {isUpdate
-              ? 'Update the question and its answer options.'
-              : 'Add a new question with answer options.'}{' '}
-            Click save when you&apos;re done.
+              ? 'قم بتحديث السؤال وخيارات الإجابة الخاصة به.'
+              : 'أضف سؤالاً جديداً مع خيارات الإجابة.'}{' '}
+            انقر على حفظ عند الانتهاء.
           </SheetDescription>
         </SheetHeader>
 
         <Form {...form}>
           <form
             id='test-question-form'
-            onSubmit={form.handleSubmit(onSubmit)}
+            onSubmit={form.handleSubmit((d) => mutation.mutate(d))}
             className='flex-1 space-y-5 overflow-y-auto px-4'
           >
             <FormField
@@ -158,12 +159,9 @@ export function TestQuestionsMutateDrawer({
               name='questionText'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Question Text</FormLabel>
+                  <FormLabel>نص السؤال</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      placeholder='e.g. How often do you feel anxious?'
-                    />
+                    <Input {...field} placeholder='مثال: كم مرة تشعر بالقلق؟' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -175,13 +173,13 @@ export function TestQuestionsMutateDrawer({
               name='testSectionId'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Section ID</FormLabel>
+                  <FormLabel>معرّف القسم</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       type='number'
                       min='1'
-                      placeholder='e.g. 1'
+                      placeholder='مثال: 1'
                     />
                   </FormControl>
                   <FormMessage />
@@ -193,7 +191,7 @@ export function TestQuestionsMutateDrawer({
 
             <div className='flex flex-col gap-3'>
               <div className='flex items-center justify-between'>
-                <FormLabel>Answer Options</FormLabel>
+                <FormLabel>خيارات الإجابة</FormLabel>
                 <Button
                   type='button'
                   variant='outline'
@@ -201,7 +199,7 @@ export function TestQuestionsMutateDrawer({
                   className='gap-1.5'
                   onClick={() => append({ optionText: '', scoreValue: '' })}
                 >
-                  <Plus size={14} /> Add Option
+                  <Plus size={14} /> إضافة خيار
                 </Button>
               </div>
 
@@ -216,11 +214,11 @@ export function TestQuestionsMutateDrawer({
                       name={`options.${index}.optionText`}
                       render={({ field: f }) => (
                         <FormItem>
-                          <FormLabel className='text-xs'>Option Text</FormLabel>
+                          <FormLabel className='text-xs'>نص الخيار</FormLabel>
                           <FormControl>
                             <Input
                               {...f}
-                              placeholder='e.g. Never'
+                              placeholder='مثال: أبداً'
                               className='h-8 text-sm'
                             />
                           </FormControl>
@@ -233,12 +231,12 @@ export function TestQuestionsMutateDrawer({
                       name={`options.${index}.scoreValue`}
                       render={({ field: f }) => (
                         <FormItem>
-                          <FormLabel className='text-xs'>Score Value</FormLabel>
+                          <FormLabel className='text-xs'>قيمة الدرجة</FormLabel>
                           <FormControl>
                             <Input
                               {...f}
                               type='number'
-                              placeholder='e.g. 0'
+                              placeholder='مثال: 0'
                               className='h-8 text-sm'
                             />
                           </FormControl>
@@ -272,14 +270,14 @@ export function TestQuestionsMutateDrawer({
 
         <SheetFooter className='gap-2'>
           <SheetClose asChild>
-            <Button variant='outline'>Close</Button>
+            <Button variant='outline'>إغلاق</Button>
           </SheetClose>
           <Button
             form='test-question-form'
             type='submit'
             disabled={mutation.isPending}
           >
-            {mutation.isPending ? 'Saving…' : 'Save changes'}
+            {mutation.isPending ? 'جارٍ الحفظ…' : 'حفظ التغييرات'}
           </Button>
         </SheetFooter>
       </SheetContent>

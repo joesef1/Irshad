@@ -6,7 +6,7 @@ export function SubscriptionsPrimaryButtons() {
   const { setOpen } = useSubscriptions()
   return (
     <Button className='space-x-1' onClick={() => setOpen('create')}>
-      <span>Add Plan</span> <Plus size={18} />
+      <span>إضافة خطة</span> <Plus size={18} />
     </Button>
   )
 }

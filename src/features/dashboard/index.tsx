@@ -38,7 +38,7 @@ export function Dashboard() {
       </Header>
 
       <Main className='flex flex-col gap-6'>
-        <h1 className='text-2xl font-bold tracking-tight'>Dashboard</h1>
+        <h1 className='text-2xl font-bold tracking-tight'>لوحة التحكم</h1>
 
         {/* ── Stats row ── */}
         {isLoading ? (
@@ -49,7 +49,7 @@ export function Dashboard() {
           </div>
         ) : isError || !stats ? (
           <div className='rounded-md border border-red-200 bg-red-50 p-4 text-sm text-destructive dark:bg-red-950/20'>
-            Failed to load dashboard statistics.
+            فشل تحميل إحصائيات لوحة التحكم.
           </div>
         ) : (
           <StatsCards stats={stats} />
@@ -68,7 +68,9 @@ export function Dashboard() {
                 ))}
               </div>
             ) : isError || !stats ? null : !stats.recentUsers?.length ? (
-              <p className='text-sm text-muted-foreground'>No recent users.</p>
+              <p className='text-sm text-muted-foreground'>
+                لا يوجد مستخدمون جدد.
+              </p>
             ) : (
               <Table>
                 <TableHeader>

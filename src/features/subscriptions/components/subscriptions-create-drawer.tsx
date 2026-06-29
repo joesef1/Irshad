@@ -29,17 +29,19 @@ import {
 } from '../api/subscriptions-api'
 
 const formSchema = z.object({
-  name: z.string().min(1, 'Plan name is required.'),
+  name: z.string().min(1, 'اسم الخطة مطلوب.'),
   durationInDays: z
     .number()
-    .int('Enter a valid whole number.')
-    .positive('Duration must be positive.'),
-  price: z.number().nonnegative('Price must be 0 or more.'),
+    .int('أدخل عدداً صحيحاً صالحاً.')
+    .positive('يجب أن تكون المدة موجبة.'),
+  price: z.number().nonnegative('يجب أن يكون السعر 0 أو أكثر.'),
   benefits: z
     .array(
-      z.object({ description: z.string().min(1, 'Benefit cannot be empty.') })
+      z.object({
+        description: z.string().min(1, 'لا يمكن أن تكون الميزة فارغة.'),
+      })
     )
-    .min(1, 'Add at least one benefit.'),
+    .min(1, 'أضف ميزة واحدة على الأقل.'),
 })
 
 type SubscriptionForm = z.infer<typeof formSchema>
@@ -76,7 +78,7 @@ export function SubscriptionsCreateDrawer({ open, onOpenChange }: Props) {
         benefits: data.benefits.map((b) => b.description),
       }),
     onSuccess: () => {
-      toast.success('Subscription plan created.')
+      toast.success('تم إنشاء خطة الاشتراك.')
       queryClient.invalidateQueries({ queryKey: subscriptionsQueryKey })
       onOpenChange(false)
       form.reset()
@@ -94,10 +96,9 @@ export function SubscriptionsCreateDrawer({ open, onOpenChange }: Props) {
     >
       <SheetContent className='flex flex-col'>
         <SheetHeader className='text-start'>
-          <SheetTitle>Create Subscription Plan</SheetTitle>
+          <SheetTitle>إنشاء خطة اشتراك</SheetTitle>
           <SheetDescription>
-            Add a new subscription plan with benefits. Click save when
-            you&apos;re done.
+            أضف خطة اشتراك جديدة مع المزايا. انقر على حفظ عند الانتهاء.
           </SheetDescription>
         </SheetHeader>
 
@@ -113,9 +114,9 @@ export function SubscriptionsCreateDrawer({ open, onOpenChange }: Props) {
               name='name'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Plan Name</FormLabel>
+                  <FormLabel>اسم الخطة</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder='e.g. Pro Monthly' />
+                    <Input {...field} placeholder='مثال: برو شهري' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -128,7 +129,7 @@ export function SubscriptionsCreateDrawer({ open, onOpenChange }: Props) {
               name='durationInDays'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Duration (days)</FormLabel>
+                  <FormLabel>المدة (بالأيام)</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -149,7 +150,7 @@ export function SubscriptionsCreateDrawer({ open, onOpenChange }: Props) {
               name='price'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Price ($)</FormLabel>
+                  <FormLabel>السعر ($)</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -168,7 +169,7 @@ export function SubscriptionsCreateDrawer({ open, onOpenChange }: Props) {
             {/* Benefits */}
             <div className='flex flex-col gap-2'>
               <div className='flex items-center justify-between'>
-                <FormLabel>Benefits</FormLabel>
+                <FormLabel>المزايا</FormLabel>
                 <Button
                   type='button'
                   variant='outline'
@@ -176,7 +177,7 @@ export function SubscriptionsCreateDrawer({ open, onOpenChange }: Props) {
                   className='gap-1'
                   onClick={() => append({ description: '' })}
                 >
-                  <Plus className='size-3.5' /> Add
+                  <Plus className='size-3.5' /> إضافة
                 </Button>
               </div>
 
@@ -189,7 +190,7 @@ export function SubscriptionsCreateDrawer({ open, onOpenChange }: Props) {
                     <FormItem>
                       <div className='flex gap-2'>
                         <FormControl>
-                          <Input {...f} placeholder={`Benefit ${index + 1}`} />
+                          <Input {...f} placeholder={`الميزة ${index + 1}`} />
                         </FormControl>
                         {fields.length > 1 && (
                           <Button
@@ -220,14 +221,14 @@ export function SubscriptionsCreateDrawer({ open, onOpenChange }: Props) {
 
         <SheetFooter className='gap-2'>
           <SheetClose asChild>
-            <Button variant='outline'>Close</Button>
+            <Button variant='outline'>إغلاق</Button>
           </SheetClose>
           <Button
             form='subscription-form'
             type='submit'
             disabled={mutation.isPending}
           >
-            {mutation.isPending ? 'Saving…' : 'Save changes'}
+            {mutation.isPending ? 'جاري الحفظ…' : 'حفظ التغييرات'}
           </Button>
         </SheetFooter>
       </SheetContent>

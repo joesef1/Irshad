@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { standardSchemaResolver as zodResolver } from '@hookform/resolvers/standard-schema'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import {
@@ -33,13 +33,13 @@ import { type ScoringRule } from '../data/schema'
 const formSchema = z.object({
   minScore: z
     .string()
-    .min(1, 'Min score is required.')
-    .refine((v) => !isNaN(Number(v)), 'Must be a number.'),
+    .min(1, 'أدنى درجة مطلوبة.')
+    .refine((v) => !isNaN(Number(v)), 'يجب أن يكون رقماً.'),
   maxScore: z
     .string()
-    .min(1, 'Max score is required.')
-    .refine((v) => !isNaN(Number(v)), 'Must be a number.'),
-  reportDetails: z.string().min(1, 'Report details are required.'),
+    .min(1, 'أعلى درجة مطلوبة.')
+    .refine((v) => !isNaN(Number(v)), 'يجب أن يكون رقماً.'),
+  reportDetails: z.string().min(1, 'تفاصيل التقرير مطلوبة.'),
 })
 
 type RuleForm = z.infer<typeof formSchema>
@@ -88,7 +88,7 @@ export function ScoringRulesMutateDrawer({
     },
     onSuccess: () => {
       toast.success(
-        isUpdate ? 'Scoring rule updated.' : 'Scoring rule created.'
+        isUpdate ? 'تم تحديث قاعدة التقييم.' : 'تم إنشاء قاعدة التقييم.'
       )
       queryClient.invalidateQueries({ queryKey: scoringRulesQueryKey(testId) })
       onOpenChange(false)
@@ -117,12 +117,12 @@ export function ScoringRulesMutateDrawer({
     >
       <SheetContent className='flex flex-col'>
         <SheetHeader className='text-start'>
-          <SheetTitle>{isUpdate ? 'Edit' : 'Create'} Scoring Rule</SheetTitle>
+          <SheetTitle>{isUpdate ? 'تعديل' : 'إنشاء'} قاعدة تقييم</SheetTitle>
           <SheetDescription>
             {isUpdate
-              ? 'Update the scoring rule details below.'
-              : 'Add a new scoring rule for this test.'}{' '}
-            Click save when you&apos;re done.
+              ? 'قم بتحديث تفاصيل قاعدة التقييم أدناه.'
+              : 'أضف قاعدة تقييم جديدة لهذا الاختبار.'}{' '}
+            انقر على حفظ عند الانتهاء.
           </SheetDescription>
         </SheetHeader>
 
@@ -137,40 +137,38 @@ export function ScoringRulesMutateDrawer({
               name='minScore'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Min Score</FormLabel>
+                  <FormLabel>أدنى درجة</FormLabel>
                   <FormControl>
-                    <Input {...field} type='number' placeholder='e.g. 0' />
+                    <Input {...field} type='number' placeholder='مثال: 0' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name='maxScore'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Max Score</FormLabel>
+                  <FormLabel>أعلى درجة</FormLabel>
                   <FormControl>
-                    <Input {...field} type='number' placeholder='e.g. 30' />
+                    <Input {...field} type='number' placeholder='مثال: 30' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name='reportDetails'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Report Details</FormLabel>
+                  <FormLabel>تفاصيل التقرير</FormLabel>
                   <FormControl>
                     <Textarea
                       {...field}
                       rows={6}
-                      placeholder='Describe the result interpretation…'
+                      placeholder='صف تفسير النتيجة…'
                     />
                   </FormControl>
                   <FormMessage />
@@ -182,14 +180,14 @@ export function ScoringRulesMutateDrawer({
 
         <SheetFooter className='gap-2'>
           <SheetClose asChild>
-            <Button variant='outline'>Close</Button>
+            <Button variant='outline'>إغلاق</Button>
           </SheetClose>
           <Button
             form='scoring-rule-form'
             type='submit'
             disabled={mutation.isPending}
           >
-            {mutation.isPending ? 'Saving…' : 'Save changes'}
+            {mutation.isPending ? 'جارٍ الحفظ…' : 'حفظ التغييرات'}
           </Button>
         </SheetFooter>
       </SheetContent>

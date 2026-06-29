@@ -46,14 +46,14 @@ export function ScoringRules({ testId, testName }: Props) {
               className='w-fit gap-1.5'
               onClick={() => navigate({ to: '/PsychologyTest' })}
             >
-              <ArrowLeft className='size-4' /> Back to Psychology Tests
+              <ArrowLeft className='size-4' /> العودة إلى الاختبارات النفسية
             </Button>
             <div>
               <h2 className='text-2xl font-bold tracking-tight'>
-                Scoring Rules{testName ? ` — ${testName}` : ''}
+                قواعد التقييم{testName ? ` — ${testName}` : ''}
               </h2>
               <p className='text-muted-foreground'>
-                Manage scoring rules for this psychology test.
+                إدارة قواعد التقييم لهذا الاختبار النفسي.
               </p>
             </div>
           </div>
@@ -70,8 +70,8 @@ export function ScoringRules({ testId, testName }: Props) {
 
         {isError && (
           <div className='rounded-md border border-red-200 bg-red-50 p-4 text-sm text-destructive dark:bg-red-950/20'>
-            Failed to load scoring rules:{' '}
-            {error instanceof Error ? error.message : 'Unknown error'}
+            فشل تحميل قواعد التقييم:{' '}
+            {error instanceof Error ? error.message : 'خطأ غير معروف'}
           </div>
         )}
 
