@@ -31,7 +31,7 @@ export function Logo({ className, ...props }: LogoProps) {
   return (
     <img
       src={logoSrc}
-      alt='Irshad.AI'
+      alt='Ershad.AI'
       className={cn('size-6', className)}
       {...props}
     />

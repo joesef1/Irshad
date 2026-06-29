@@ -27,7 +27,7 @@ export function TeamSwitcher({ teams: _teams }: TeamSwitcherProps) {
             <Logo className='size-8 object-contain' />
           </div>
           <div className='grid flex-1 text-start text-sm leading-tight'>
-            <span className='truncate font-semibold'>Irshad.AI</span>
+            <span className='truncate font-semibold'>Ershad.AI</span>
             <span className='truncate text-xs'>إرشاد</span>
           </div>
         </SidebarMenuButton>
