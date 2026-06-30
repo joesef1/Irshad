@@ -11,9 +11,11 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { SignOutDialog } from '@/components/sign-out-dialog'
+import { useAuthStore } from '@/stores/auth-store'
 
 export function ProfileDropdown() {
   const [open, setOpen] = useDialogState()
+  const { auth } = useAuthStore()
 
   return (
     <>
@@ -29,9 +31,8 @@ export function ProfileDropdown() {
         <DropdownMenuContent className='w-56' align='end' forceMount>
           <DropdownMenuLabel className='font-normal'>
             <div className='flex flex-col gap-1.5'>
-              <p className='text-sm leading-none font-medium'>satnaing</p>
               <p className='text-xs leading-none text-muted-foreground'>
-                satnaingdev@gmail.com
+                {auth.user?.email || 'User'}
               </p>
             </div>
           </DropdownMenuLabel>

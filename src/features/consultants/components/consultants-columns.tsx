@@ -121,7 +121,7 @@ export const consultantsColumns: ColumnDef<Consultant>[] = [
   },
   {
     id: 'actions',
-    header: () => <span className='sr-only'>الإجراءات</span>,
+    header: () => <span>التفاصيل</span>,
     cell: ({ row }) => (
       <Button variant='ghost' size='icon' asChild>
         <Link

@@ -25,6 +25,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar'
 import { SignOutDialog } from '@/components/sign-out-dialog'
+import { useAuthStore } from '@/stores/auth-store'
 
 type NavUserProps = {
   user: {
@@ -37,6 +38,7 @@ type NavUserProps = {
 export function NavUser({ user }: NavUserProps) {
   const { isMobile } = useSidebar()
   const [open, setOpen] = useDialogState()
+  const { auth } = useAuthStore()
 
   return (
     <>
@@ -53,8 +55,7 @@ export function NavUser({ user }: NavUserProps) {
                   <AvatarFallback className='rounded-lg'>SN</AvatarFallback>
                 </Avatar>
                 <div className='grid flex-1 text-start text-sm leading-tight'>
-                  <span className='truncate font-semibold'>{user.name}</span>
-                  <span className='truncate text-xs'>{user.email}</span>
+                  <span className='truncate text-xs'>{auth.user?.email || 'User'}</span>
                 </div>
                 <ChevronsUpDown className='ms-auto size-4' />
               </SidebarMenuButton>
@@ -72,8 +73,7 @@ export function NavUser({ user }: NavUserProps) {
                     <AvatarFallback className='rounded-lg'>SN</AvatarFallback>
                   </Avatar>
                   <div className='grid flex-1 text-start text-sm leading-tight'>
-                    <span className='truncate font-semibold'>{user.name}</span>
-                    <span className='truncate text-xs'>{user.email}</span>
+                    <span className='truncate text-xs'>{auth.user?.email || 'User'}</span>
                   </div>
                 </div>
               </DropdownMenuLabel>
