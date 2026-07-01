@@ -59,10 +59,15 @@ export function getPageNumbers(currentPage: number, totalPages: number) {
   return rangeWithDots
 }
 
-/**
- * Initials from a display name: first character of the first word + first
- * character of the last word. One word only: first two characters. Empty: `?`.
- */
+/** Case-insensitive field access for API responses (handles PascalCase/camelCase mismatch). */
+export function getFieldCI<T>(obj: Record<string, unknown> | null | undefined, key: string): T | undefined {
+  if (!obj) return undefined
+  if (key in obj) return obj[key] as T
+  const lower = key.toLowerCase()
+  const match = Object.keys(obj).find((k) => k.toLowerCase() === lower)
+  return match ? (obj[match] as T) : undefined
+}
+
 export function getDisplayNameInitials(displayName: string): string {
   const parts = displayName.trim().split(/\s+/).filter(Boolean)
   if (parts.length === 0) return '?'

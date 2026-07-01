@@ -67,9 +67,8 @@ export async function deleteFaq(id: number): Promise<void> {
 
 export interface TechnicalSupport {
   id?: number
-  email?: string | null
-  phone?: string | null
-  whatsapp?: string | null
+  emailAddress?: string | null
+  phoneNumber?: string | null
   [key: string]: unknown
 }
 

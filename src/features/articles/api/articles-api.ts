@@ -78,6 +78,29 @@ export async function deleteArticleSections(articleId: number): Promise<void> {
     throw new Error(res.data.message ?? 'Failed to delete sections')
 }
 
+export interface UploadUserFilesResponse {
+  identityFileUrl: string | null
+  qualificationFileUrl: string | null
+  addressFileUrl: string | null
+  personalFileUrl: string | null
+}
+
+export async function uploadUserFile(
+  userId: string,
+  file: File
+): Promise<UploadUserFilesResponse> {
+  const fd = new FormData()
+  fd.append('IdentityFile', file)
+  const res = await api.post<ApiResponse<UploadUserFilesResponse>>(
+    `/api/Auth/UploadOrUpdateUserFilesAsync/${userId}`,
+    fd,
+    { headers: { 'Content-Type': 'multipart/form-data' } }
+  )
+  if (!res.data.succeeded || !res.data.data)
+    throw new Error(res.data.message ?? 'Failed to upload file')
+  return res.data.data
+}
+
 export const articlesQueryKey = ['articles'] as const
 export const articleDetailsQueryKey = (id: number) =>
   ['article-details', id] as const

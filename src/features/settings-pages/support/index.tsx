@@ -31,7 +31,6 @@ import {
 const formSchema = z.object({
   email: z.string().optional(),
   phone: z.string().optional(),
-  whatsapp: z.string().optional(),
 })
 type SupportForm = z.infer<typeof formSchema>
 
@@ -45,21 +44,24 @@ export function SupportPage() {
 
   const form = useForm<SupportForm>({
     resolver: zodResolver(formSchema),
-    defaultValues: { email: '', phone: '', whatsapp: '' },
+    defaultValues: { email: '', phone: '' },
   })
 
   useEffect(() => {
     if (data) {
       form.reset({
-        email: data.email ?? '',
-        phone: data.phone ?? '',
-        whatsapp: data.whatsapp ?? '',
+        email: data.emailAddress ?? '',
+        phone: data.phoneNumber ?? '',
       })
     }
   }, [data, form])
 
   const mutation = useMutation({
-    mutationFn: (d: SupportForm) => updateTechnicalSupport({ ...data, ...d }),
+    mutationFn: (d: SupportForm) =>
+      updateTechnicalSupport({
+        emailAddress: d.email,
+        phoneNumber: d.phone,
+      }),
     onSuccess: () => {
       toast.success('تم تحديث معلومات الدعم الفني.')
       queryClient.invalidateQueries({ queryKey: technicalSupportQueryKey })
@@ -86,7 +88,7 @@ export function SupportPage() {
 
         {isLoading && (
           <div className='flex flex-col gap-3'>
-            {Array.from({ length: 3 }).map((_, i) => (
+            {Array.from({ length: 2 }).map((_, i) => (
               <Skeleton key={i} className='h-12 w-full rounded' />
             ))}
           </div>
@@ -99,69 +101,83 @@ export function SupportPage() {
           </div>
         )}
 
-        {!isLoading && !isError && (
-          <Card className='max-w-lg'>
-            <CardHeader>
-              <CardTitle className='text-base'>بيانات التواصل</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Form {...form}>
-                <form
-                  id='support-form'
-                  onSubmit={form.handleSubmit((d) => mutation.mutate(d))}
-                  className='flex flex-col gap-5'
-                >
-                  <FormField
-                    control={form.control}
-                    name='email'
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>البريد الإلكتروني</FormLabel>
-                        <FormControl>
-                          <Input {...field} placeholder='support@example.com' />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name='phone'
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>رقم الهاتف</FormLabel>
-                        <FormControl>
-                          <Input {...field} placeholder='+966 5xx xxx xxx' />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name='whatsapp'
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>واتساب</FormLabel>
-                        <FormControl>
-                          <Input {...field} placeholder='+966 5xx xxx xxx' />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <Button
-                    type='submit'
-                    form='support-form'
-                    disabled={mutation.isPending}
-                    className='self-end'
+        {!isLoading && !isError && data && (
+          <>
+            <Card className='max-w-lg'>
+              <CardHeader>
+                <CardTitle className='text-base'>البيانات الحالية</CardTitle>
+              </CardHeader>
+              <CardContent className='space-y-3 text-sm'>
+                <div className='flex items-center justify-between rounded-md border p-3'>
+                  <span className='text-muted-foreground'>
+                    البريد الإلكتروني
+                  </span>
+                  <span className='font-medium' dir='ltr'>
+                    {data.emailAddress || '—'}
+                  </span>
+                </div>
+                <div className='flex items-center justify-between rounded-md border p-3'>
+                  <span className='text-muted-foreground'>رقم الهاتف</span>
+                  <span className='font-medium' dir='ltr'>
+                    {data.phoneNumber || '—'}
+                  </span>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className='max-w-lg'>
+              <CardHeader>
+                <CardTitle className='text-base'>تحديث البيانات</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Form {...form}>
+                  <form
+                    id='support-form'
+                    onSubmit={form.handleSubmit((d) => mutation.mutate(d))}
+                    className='flex flex-col gap-5'
                   >
-                    {mutation.isPending ? 'جارٍ الحفظ…' : 'حفظ التغييرات'}
-                  </Button>
-                </form>
-              </Form>
-            </CardContent>
-          </Card>
+                    <FormField
+                      control={form.control}
+                      name='email'
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>البريد الإلكتروني</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              placeholder='support@example.com'
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name='phone'
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>رقم الهاتف</FormLabel>
+                          <FormControl>
+                            <Input {...field} placeholder='+966 5xx xxx xxx' />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <Button
+                      type='submit'
+                      form='support-form'
+                      disabled={mutation.isPending}
+                      className='self-end'
+                    >
+                      {mutation.isPending ? 'جارٍ الحفظ…' : 'حفظ التغييرات'}
+                    </Button>
+                  </form>
+                </Form>
+              </CardContent>
+            </Card>
+          </>
         )}
       </Main>
     </>
